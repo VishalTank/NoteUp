@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NoteUp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="title_msg">title</string>
+    <string name="ok">Ok</string>
+    <string name="titttle">title</string>
+    <string name="use_darktheme">Use DarkTheme</string>
+    <string name="ex">Reminder is not set!</string>
+</resources>
