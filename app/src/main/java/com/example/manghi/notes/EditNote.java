@@ -213,7 +213,7 @@ public class EditNote extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                updateSaveButton(s);
+                updateNoteSaveButton(s);
                 invalidateOptionsMenu();
             }
 
@@ -230,12 +230,26 @@ public class EditNote extends AppCompatActivity {
                 } else if (isChecked && isAlarmSet) {
                     reminder_time = Long.parseLong(bundle.get("notitime").toString());
                     reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
+                } else if(!isChecked && isAlarmSet) {
+                    reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
+
+                    Intent cancelServiceIntent = new Intent(EditNote.this, AlarmReceiver.class);
+                    PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(EditNote.this, reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    if (am != null)
+                        am.cancel(cancelPendingIntent);
+                    Toast.makeText(EditNote.this, "canceled : "+ reminder_id, Toast.LENGTH_SHORT).show();
+
+                    isAlarmSet = false;
+                    reminder_id = 0;
                 }
             }
         });
 
         //Editing an existing Note.
         bundle = getIntent().getExtras();
+
         if (bundle != null) {
             title = bundle.get("title").toString();
             name = bundle.get("name").toString();
@@ -295,12 +309,12 @@ public class EditNote extends AppCompatActivity {
 
                     //new Note
                     if (name == null && title == null) {
-                        database.insertdata(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
+                        database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
                     }
                     //Editing an existing Note since name and title are not null.
                     else {
-                        database.update(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
+                        database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
                     }
 
@@ -357,9 +371,9 @@ public class EditNote extends AppCompatActivity {
                 else if (!aSwitch.isChecked()) {
 
                     if (name == null && title == null)
-                        database.insertdata(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
+                        database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
                     else
-                        database.update(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
+                        database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
 
                         Intent cancelServiceIntent = new Intent(this, AlarmReceiver.class);
                         PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(this, reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -385,7 +399,7 @@ public class EditNote extends AppCompatActivity {
         }
     }
 
-    private void updateSaveButton(CharSequence s) {
+    private void updateNoteSaveButton(CharSequence s) {
         String text = null;
 
         if (s != null)

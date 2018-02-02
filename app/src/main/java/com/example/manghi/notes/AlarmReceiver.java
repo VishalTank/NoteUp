@@ -57,11 +57,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         //Delete Note action button in the notification.
-        Intent deleteIntent = new Intent(context,EditNote.class);
-        deleteIntent.setAction("Delete Note");
-
-        PendingIntent deletependingIntent = PendingIntent.getActivity(context, intent.getIntExtra("reminder_id",0), addIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.addAction(0, "Delete Note", deletependingIntent);
 
 
         //Throws notifications.

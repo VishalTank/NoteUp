@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE + " ;");
     }
 
-    void insertdata(String title, String name, Long noti_time,int reminder_id) {
+    void insertNote(String title, String name, Long noti_time,int reminder_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -63,14 +63,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE, null, contentValues);
     }
 
-    void delete(DataModel dataModel) {
+    void deleteNote(DataModel dataModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         String date = Long.toString(dataModel.getTime());
 
         db.delete(TABLE, "time = ?", new String[]{date});
     }
 
-    void update(String title, String name, long time, long noti_time,long reminder_id) {
+    void updateNote(String title, String name, long time, long noti_time,long reminder_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         String d = Long.toString(time);
@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE, contentValues, "time = ?", new String[]{d});
     }
 
-    List<DataModel> getdata() {
+    List<DataModel> getData() {
 
         List<DataModel> data = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();

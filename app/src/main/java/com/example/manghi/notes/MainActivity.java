@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         datamodel = new ArrayList<DataModel>();
         database = new DatabaseHelper(this);
-        datamodel = database.getdata();
+        datamodel = database.getData();
         adapter = new DataAdapter(datamodel);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int bm = (dm.getBookmark() == 0) ? 1 : 0;
                         database.bookM(dm.getTime(), bm);
 
-                        datamodel = database.getdata();
+                        datamodel = database.getData();
                         adapter = new DataAdapter(datamodel);
                         recyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -181,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Snackbar sb = Snackbar.make(viewHolder.itemView, "Removed", Snackbar.LENGTH_LONG).setDuration(5000).setAction("UNDO", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            database.insertdata(rem_title,rem,rem_notitime,rem_reminder_id);
-                            datamodel = database.getdata();
+                            database.insertNote(rem_title,rem,rem_notitime,rem_reminder_id);
+                            datamodel = database.getData();
                             adapter = new DataAdapter(datamodel);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
@@ -191,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     sb.setActionTextColor(Color.GREEN);
                     sb.show();
 
-                    database.delete(dm);
-                    datamodel = database.getdata();
+                    database.deleteNote(dm);
+                    datamodel = database.getData();
                     adapter = new DataAdapter(datamodel);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        datamodel = database.getdata();
+        datamodel = database.getData();
         adapter = new DataAdapter(datamodel);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
