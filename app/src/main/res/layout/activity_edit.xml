@@ -26,90 +26,89 @@
     </android.support.design.widget.AppBarLayout>
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".EditNote"
+        android:layout_below="@id/view">
+
+        <EditText
+            android:id="@+id/etTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".EditNote"
-            android:layout_below="@id/view">
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:hint="Title"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:textAlignment="textStart"
+            android:textColor="?attr/tintcolor"
+            android:textColorHint="?attr/noteColor"
+            android:textSize="24sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp">
 
             <EditText
-                android:id="@+id/etTextTitle"
+                android:id="@+id/etText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:hint="Add note here...."
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:hint="Title"
-                android:paddingTop="10dp"
-                android:singleLine="true"
                 android:textAlignment="textStart"
                 android:textColor="?attr/tintcolor"
-                android:textColorHint="?attr/noteColor"
-                android:textSize="24sp" />
+                android:textColorHint="?attr/noteColor" />
 
-            <ScrollView
-                android:id="@+id/scrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/etTextTitle"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp">
+        </ScrollView>
 
-                <EditText
-                    android:id="@+id/etText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Add note here...."
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:textAlignment="textStart"
-                    android:textColor="?attr/tintcolor"
-                    android:textColorHint="?attr/noteColor" />
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/aSwitch"
+            android:theme="@style/SwitchCompatStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Set Reminder"
+            android:textColor="?attr/tintcolor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            </ScrollView>
+        <TextView
+            android:id="@+id/rem_time1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="Reminder Time : "
+            android:textAlignment="textStart"
+            android:textColor="?attr/tintcolor"
+            android:textSize="16sp" />
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/aSwitch"
-                android:theme="@style/SwitchCompatStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:text="Set Reminder"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/rem_time1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:text="Reminder Time : "
-                android:textAlignment="textStart"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/rem_time2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Not Set."
-                android:textAlignment="textStart"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/rem_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Not Set."
+            android:textAlignment="textStart"
+            android:textColor="?attr/tintcolor"
+            android:textSize="16sp" />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout

@@ -13,55 +13,34 @@
     android:padding="@dimen/padd_10">
 
 
-        <TextView
-            android:id="@+id/tv_names"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/bg"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="?attr/tintcolor"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_names"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg"
-            android:textColor="?attr/tintcolor"
-            android:textIsSelectable="false"
-            android:textSize="12sp" />
-
-    <ImageView
-        android:id="@+id/set_reminder"
+    <TextView
+        android:id="@+id/tv_names"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/time"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/set_reminder" />
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/tintcolor"
+        android:textSize="17sp" />
 
     <TextView
-            android:id="@+id/noti_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/time"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg"
-            android:textColor="?attr/tintcolor"
-            android:textIsSelectable="false"
-            android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/reminder_id"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/noti_time"
-        android:layout_marginStart="29dp"
-        android:layout_toEndOf="@+id/noti_time"
+        android:layout_below="@id/tv_names"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg"
+        android:textColor="?attr/tintcolor"
+        android:textIsSelectable="false"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/noti_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg"
         android:textColor="?attr/tintcolor"
         android:textIsSelectable="false"
