@@ -34,7 +34,8 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/backgroundColor" />
+        android:background="?attr/backgroundColor"
+        android:layoutAnimation="@anim/layout_animation_fall_down"/>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -49,8 +50,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/add_file"
-        app:backgroundTint="@color/sky"
-        app:rippleColor="@color/skylight"
+        app:backgroundTint="?attr/fab"
+        app:rippleColor="?attr/rippleColor"
         android:elevation="6dp"/>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

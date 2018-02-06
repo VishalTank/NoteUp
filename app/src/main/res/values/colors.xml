@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#e2e2e2</color>
-    <color name="colorAccent">#e2e2e2</color>
-    <color name="bg_row_background">#fa315b</color>
-    <color name="item_name">#535353</color>
-    <color name="description">#a9a9a9</color>
-    <color name="noteColor">#546673</color>
-    <color name="sky">#33B5FF</color>
-    <color name="skylight">#DEF2FF</color>
 </resources>
 
