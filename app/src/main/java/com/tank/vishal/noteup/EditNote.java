@@ -119,7 +119,8 @@ public class EditNote extends AppCompatActivity {
 
                 int startSelection = etText.getSelectionStart();
                 int endSelection = etText.getSelectionEnd();
-                text = Html.toHtml(new SpannableString(etText.getText()));
+
+                text = String.valueOf((new SpannableString(etText.getText())));
 
                 if (startSelection > endSelection) {
                     startSelection = etText.getSelectionEnd();
@@ -128,31 +129,31 @@ public class EditNote extends AppCompatActivity {
 
                 String selectedText = etText.getText().toString().substring(startSelection, endSelection);
 
-                if (!selectedText.isEmpty())
+                if (!selectedText.isEmpty()) {
                     text = text.replace(selectedText, "<b>" + selectedText + "</b>");
-
-                if (!text.isEmpty())
                     etText.setText(Html.fromHtml(text));
+                }
             }
         });
 
         italic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int startSelection = etText.getSelectionStart();
                 int endSelection = etText.getSelectionEnd();
-                text = Html.toHtml(new SpannableString(etText.getText()));
 
+                text = String.valueOf((new SpannableString(etText.getText())));
 
                 if (startSelection > endSelection) {
                     startSelection = etText.getSelectionEnd();
                     endSelection = etText.getSelectionStart();
                 }
+
                 String selectedText = etText.getText().toString().substring(startSelection, endSelection);
+
                 if (!selectedText.isEmpty()) {
                     text = text.replace(selectedText, "<i>" + selectedText + "</i>");
-                }
-                if (!text.isEmpty()) {
                     etText.setText(Html.fromHtml(text));
                 }
             }
@@ -163,7 +164,8 @@ public class EditNote extends AppCompatActivity {
             public void onClick(View v) {
                 int startSelection = etText.getSelectionStart();
                 int endSelection = etText.getSelectionEnd();
-                text = Html.toHtml(new SpannableString(etText.getText()));
+
+                text = String.valueOf((new SpannableString(etText.getText())));
 
                 if (startSelection > endSelection) {
                     startSelection = etText.getSelectionEnd();
@@ -171,10 +173,9 @@ public class EditNote extends AppCompatActivity {
                 }
 
                 String selectedText = etText.getText().toString().substring(startSelection, endSelection);
+
                 if (!selectedText.isEmpty()) {
                     text = text.replace(selectedText, "<u>" + selectedText + "</u>");
-                }
-                if (!text.isEmpty()) {
                     etText.setText(Html.fromHtml(text));
                 }
             }
@@ -203,13 +204,15 @@ public class EditNote extends AppCompatActivity {
                 if (isChecked && !isAlarmSet) {
 
                     showDateTimePicker();
-                    rem_time.setText(new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(reminder_time));
+
+                    //rem_time.setText(new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(reminder_time));
 
                 }
                 else if (isChecked && isAlarmSet) {
 
                     reminder_time = Long.parseLong(bundle.get("notitime").toString());
                     reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
+
                     isAlreadySet = true;
                     rem_time.setText(new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(reminder_time));
 
@@ -217,21 +220,13 @@ public class EditNote extends AppCompatActivity {
 
                     reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
 
-                    Intent cancelServiceIntent = new Intent(EditNote.this, AlarmReceiver.class);
-                    PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(EditNote.this, reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    cancelAlarm(reminder_id);
 
-                    if (am != null)
-                        am.cancel(cancelPendingIntent);
-
-                    rem_time.setText("Not Set!");
                     isAlarmSet = false;
                     isAlreadySet = false;
                     reminder_id = 0;
-
-                    Toast.makeText(EditNote.this, "canceled : "+ reminder_id, Toast.LENGTH_SHORT).show();
-
-                }
+                    dataModel.setReminderID(0);
+                    rem_time.setText("Not Set!");                }
             }
         });
 
@@ -250,6 +245,7 @@ public class EditNote extends AppCompatActivity {
             noti_id = Integer.parseInt(bundle.get("reminder_id").toString());
 
             if (name != null) {
+
                 etTextTitle.setText(title);
                 etText.setText(Html.fromHtml(name));
 
@@ -296,20 +292,10 @@ public class EditNote extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.save_check:
-                Long r_e_time;
-
-                /*if(reminder_time == 0) {
-                    r_e_time = calender.getTimeInMillis();
-                    Toast.makeText(this, "new time"+r_e_time, Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    r_e_time = reminder_time;
-                    Toast.makeText(this, "new time"+r_e_time, Toast.LENGTH_SHORT).show();
-                }*/
 
                 if(aSwitch.isChecked() && isAlreadySet) {
 
-                    dataModel.setNotiTime(reminder_time);
+                    dataModel.setReminderTime(reminder_time);
                     dataModel.setReminderID(reminder_id);
 
                     if (name == null && title == null)
@@ -317,10 +303,24 @@ public class EditNote extends AppCompatActivity {
                     else
                         database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
 
+                    Intent intent = new Intent(this, AlarmReceiver.class);
+                    intent.putExtra("title", etTextTitle.getText().toString());
+                    intent.putExtra("name", Html.toHtml(etText.getText()));
+                    intent.putExtra("time", originTime);
+                    intent.putExtra("reminder_id",reminder_id);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reminder_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                    if(!isAlreadySet && alarmManager != null)
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, dataModel.getReminderTime(), pendingIntent);
+
                     isAlreadySet = true;
                     isAlarmSet = true;
 
                     Toast.makeText(this, "if", Toast.LENGTH_SHORT).show();
+
                     this.finish();
                 }
                 //Switch is on and proper time is set.
@@ -329,18 +329,22 @@ public class EditNote extends AppCompatActivity {
                     reminder_time = calender.getTimeInMillis();
                     reminder_id = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
-                    dataModel.setNotiTime(reminder_time);
+                    dataModel.setReminderTime(reminder_time);
                     dataModel.setReminderID(reminder_id);
 
                     //new Note
                     if (name == null && title == null) {
+
                         database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
+
                     }
                     //Editing an existing Note since name and title are not null.
                     else {
+
                         database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
+
                     }
 
 
@@ -349,22 +353,24 @@ public class EditNote extends AppCompatActivity {
                     intent.putExtra("name", Html.toHtml(etText.getText()));
                     intent.putExtra("time", originTime);
                     intent.putExtra("reminder_id",reminder_id);
-
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reminder_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, dataModel.getNotiTime(), pendingIntent);
+                    if (alarmManager != null) {
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, dataModel.getReminderTime(), pendingIntent);
+                    }
 
                     isAlarmSet = true;
                     isAlreadySet = true;
-                    // Toast.makeText(this, "reminder_id : "+reminder_id + " " + dataModel.getReminderID(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "else if 1", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(this, "1 reminder_id : "+reminder_id + " " + dataModel.getReminderID(), Toast.LENGTH_SHORT).show();
 
                     this.finish();
                 }
+
                 //Switch is on and improper time is set.
-                else if (aSwitch.isChecked() && reminder_time < System.currentTimeMillis()) {
+                else if (aSwitch.isChecked() && calender.getTimeInMillis() < System.currentTimeMillis()) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_MinWidth);
 
@@ -372,28 +378,34 @@ public class EditNote extends AppCompatActivity {
                     alert.setMessage("\nPlease set proper Date and Time.");
 
                     final AlertDialog dialog = alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                             aSwitch.setChecked(false);
                         }
+
                     }).setPositiveButton("SET", new DialogInterface.OnClickListener() {
+
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             showDateTimePicker();
                         }
+
                     }).create();
 
                     dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+
                         @Override
                         public void onShow(DialogInterface arg0) {
                             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
                             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
                         }
+
                     });
                     dialog.show();
-                    Toast.makeText(this, "else if 2", Toast.LENGTH_SHORT).show();
 
+                    Toast.makeText(this,"2", Toast.LENGTH_SHORT).show();
                 }
 
                 //Switch is not set.
@@ -404,15 +416,9 @@ public class EditNote extends AppCompatActivity {
                     else
                         database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
 
-                    Intent cancelServiceIntent = new Intent(this, AlarmReceiver.class);
-                    PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(this, reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    cancelAlarm(reminder_id);
 
-                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    if (am != null)
-                        am.cancel(cancelPendingIntent);
-
-                    //Toast.makeText(EditNote.this, "CANCELED: " + reminder_id + "  " + dataModel.getReminderID() , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "else if 3", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "3 canceled reminder_id : "  + reminder_id + "  " + dataModel.getReminderID(), Toast.LENGTH_SHORT).show();
 
                     isAlarmSet = false;
                     isAlreadySet = false;
@@ -467,4 +473,20 @@ public class EditNote extends AppCompatActivity {
         }, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)).show();
 
     }
+
+    private void cancelAlarm(int remID) {
+
+        Intent cancelServiceIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(this, remID, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (am != null)
+            am.cancel(cancelPendingIntent);
+
+        isAlreadySet = false;
+        isAlarmSet = false;
+        reminder_id = 0;
+    }
+
 }

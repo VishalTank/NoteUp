@@ -20,14 +20,14 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DATABASE = "database.db";
+    private static String DATABASE = "database2.db";
     private static String TABLE = "NoteTable";
     private static String TITLE = "title";
     private static String NAME = "name";
     private static String TIME = "time";
     private static String REMINDER_ID = "reminder_id";
     private static String BOOKMARK = "bookm";
-    private static String NOTITIME = "notitime";
+    private static String REMINDER_TIME = "reminder_time";
 
 
     DatabaseHelper(Context context) {
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TITLE + " TEXT, "
                 + NAME + " TEXT, "
                 + TIME + " LONG PRIMARY KEY, "
-                + NOTITIME + " LONG, "
+                + REMINDER_TIME + " LONG, "
                 + REMINDER_ID + " INTEGER, "
                 + BOOKMARK + " INTEGER DEFAULT 1 )");
     }
@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TITLE, title);
         contentValues.put(NAME, name);
         contentValues.put(TIME, System.currentTimeMillis());
-        contentValues.put(NOTITIME, noti_time);
+        contentValues.put(REMINDER_TIME, noti_time);
         contentValues.put(REMINDER_ID,reminder_id);
         db.insert(TABLE, null, contentValues);
     }
@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TITLE, title);
         contentValues.put(NAME, name);
         contentValues.put(TIME, System.currentTimeMillis());
-        contentValues.put(NOTITIME, noti_time);
+        contentValues.put(REMINDER_TIME, noti_time);
         contentValues.put(REMINDER_ID,reminder_id);
         db.update(TABLE, contentValues, "time = ?", new String[]{d});
     }
@@ -106,10 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         StringBuilder stringBuffer = new StringBuilder();
         DataModel dataModel;
 
-        if(sort.equalsIgnoreCase("Modification"))
-            cursor = db.rawQuery("select * from " + TABLE + " ORDER BY " + TIME + " DESC;", null);
-        else //if(sort.equalsIgnoreCase("Reminder"))
-            cursor = db.rawQuery("select * from " + TABLE + " ORDER BY " + REMINDER_ID + "," + TIME + " DESC;",null);
+        cursor = db.rawQuery("select * from " + TABLE + " ORDER BY " + TIME + " DESC;", null);
 
         while (cursor.moveToNext()) {
             dataModel = new DataModel();
@@ -118,14 +115,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME));
             Long time = cursor.getLong(cursor.getColumnIndexOrThrow(TIME));
             Integer book = cursor.getInt(cursor.getColumnIndexOrThrow(BOOKMARK));
-            Long notitime = cursor.getLong(cursor.getColumnIndexOrThrow(NOTITIME));
+            Long reminder_time = cursor.getLong(cursor.getColumnIndexOrThrow(REMINDER_TIME));
             Integer reminder_id = cursor.getInt(cursor.getColumnIndexOrThrow(REMINDER_ID));
 
             dataModel.setTitle(title);
             dataModel.setName(name);
             dataModel.setDate(time);
             dataModel.setBookmark(book);
-            dataModel.setNotiTime(notitime);
+            dataModel.setReminderTime(reminder_time);
             dataModel.setReminderID(reminder_id);
 
             stringBuffer.append(dataModel);

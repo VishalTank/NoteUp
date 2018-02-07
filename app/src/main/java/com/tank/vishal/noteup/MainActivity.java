@@ -76,17 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences1 = getSharedPreferences("prefs1",MODE_PRIVATE);
-        sortType = preferences1.getBoolean("sort_type",false);
-
-        if(sortType) {
-            sort = "Reminder";
-            initViews();
-        }
-        else {
-            sort = "Modification";
-            initViews();
-        }
+        initViews();
 
         //Custom Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -141,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(View view, int position) {
                         dm = datamodel.get(position);
-                        showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getNotiTime());
+                        showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
                     }
 
                     @Override
@@ -181,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     rem_title = dm.getTitle();
                     rem = dm.getName();
-                    rem_notitime = dm.getNotiTime();
+                    rem_notitime = dm.getReminderTime();
                     rem_reminder_id = dm.getReminderID();
 
                     adapter.removeItem(position);
@@ -212,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     i.putExtra("title", dm.getTitle());
                     i.putExtra("name", dm.getName());
                     i.putExtra("time", dm.getTime());
-                    i.putExtra("notitime",dm.getNotiTime());
+                    i.putExtra("notitime",dm.getReminderTime());
                     i.putExtra("reminder_id",dm.getReminderID());
                     startActivity(i);
 
@@ -328,13 +318,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    private void toggleSort(boolean sortType) {
-        SharedPreferences.Editor editor = getSharedPreferences("prefs1",MODE_PRIVATE).edit();
-        editor.putBoolean("sort_type", sortType);
-        editor.apply();
-        initViews();
-    }
-
 
     //Floating action button's onClick
     @Override
@@ -353,17 +336,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu (Menu menu) {
-        if(sortType) {
-            menu.findItem(R.id.reminder).setChecked(true);
-            menu.findItem(R.id.modification).setChecked(false);
-        } else {
-            menu.findItem(R.id.modification).setChecked(true);
-            menu.findItem(R.id.reminder).setChecked(false);
-        }
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -404,17 +376,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent i = new Intent(this,AboutActivity.class);
                 startActivity(i);
 
-            case R.id.modification:
-                sort = "Modification";
-                sortType = false;
-                toggleSort(!sortType);
-                return true;
-
-            case R.id.reminder:
-                sort = "Reminder";
-                sortType = true;
-                toggleSort(sortType);
-                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

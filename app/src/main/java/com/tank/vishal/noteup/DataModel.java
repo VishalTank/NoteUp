@@ -14,7 +14,7 @@ public class DataModel {
 
     private String name,title;
     private java.sql.Date date;
-    private long notidate;
+    private long reminder_time;
     private int reminder_id,bookm;
 
     //note's title
@@ -50,9 +50,9 @@ public class DataModel {
 
 
     //reminder's date & time
-    long getNotiTime() { return notidate; }
+    long getReminderTime() { return reminder_time; }
 
-    void setNotiTime(Long notidate) { this.notidate = notidate; }
+    void setReminderTime(Long reminder_time) { this.reminder_time = reminder_time; }
 
 
     //reminder's ID

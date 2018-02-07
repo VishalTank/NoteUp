@@ -7,30 +7,6 @@
     <!-- Settings, should always be in the overflow -->
 
     <item
-        android:id="@+id/Sort"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="Sort by...">
-
-        <menu>
-            <group android:id="@+id/Options">
-
-                <item
-                    android:id="@+id/modification"
-                    android:checkable="true"
-                    android:title="Modification time" />
-
-                <item
-                    android:id="@+id/reminder"
-                    android:checkable="true"
-                    android:title="Reminder time" />
-
-            </group>
-        </menu>
-
-    </item>
-
-    <item
         android:id="@+id/clear_db"
         android:title="Clear Database" />
 

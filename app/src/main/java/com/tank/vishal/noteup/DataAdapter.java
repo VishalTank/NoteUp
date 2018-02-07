@@ -65,7 +65,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "SetTextI18n"})
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         DataModel dataModel = names.get(position);
@@ -91,12 +91,14 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm");
-        String dateString = formatter.format(new Date(dataModel.getNotiTime()));
+        String dateString = formatter.format(new Date(dataModel.getReminderTime()));
 
-        if(dataModel.getNotiTime() > System.currentTimeMillis()) {
+        if(dataModel.getReminderTime() > System.currentTimeMillis()) {
             viewHolder.noti_time.setText(dateString);
             viewHolder.alarm_on.setVisibility(View.VISIBLE);
         }
+        else
+            viewHolder.noti_time.setText("Not Set!" + dataModel.getReminderID());
     }
 
 
