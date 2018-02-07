@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/view"
+        android:id="@+id/toolbar_show_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="4dp"
@@ -33,8 +33,11 @@
         android:layout_height="match_parent"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:focusable="true"
+        android:clickable="true"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/backgroundColor" />
+        android:background="?attr/backgroundColor"
+        android:layoutAnimation="@anim/layout_animation_fall_down"/>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -49,8 +52,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/add_file"
-        app:backgroundTint="@color/sky"
-        app:rippleColor="@color/skylight"
+        app:backgroundTint="?attr/fab"
+        app:rippleColor="?attr/rippleColor"
         android:elevation="6dp"/>
+
+
 
 </android.support.design.widget.CoordinatorLayout>
