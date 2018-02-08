@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg"
     android:layout_margin="@dimen/padd_10"
     android:layout_marginBottom="2dp"
     android:layout_marginTop="4dp"
-    android:background="@drawable/bg"
     android:elevation="4dp"
-    android:orientation="vertical"
     android:padding="@dimen/padd_10">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
         <TextView
@@ -18,16 +24,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:transitionName="@string/transition_name_title"
             android:background="@drawable/bg"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textStyle="bold"
+            android:text="hi"
             android:textColor="?attr/tintcolor"
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/creation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:transitionName="@string/transition_name_date"
             android:layout_below="@id/tv_names"
             android:layout_marginTop="5dp"
             android:background="@drawable/bg"
@@ -35,36 +45,27 @@
             android:textIsSelectable="false"
             android:textSize="12sp" />
 
-    <ImageView
-        android:id="@+id/set_reminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/time"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/set_reminder" />
-
-    <TextView
+        <TextView
             android:id="@+id/noti_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/time"
+            android:layout_below="@id/creation_time"
             android:layout_marginTop="5dp"
             android:background="@drawable/bg"
             android:textColor="?attr/tintcolor"
             android:textIsSelectable="false"
             android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/reminder_id"
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/alarm_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/noti_time"
-        android:layout_marginStart="29dp"
-        android:layout_toEndOf="@+id/noti_time"
-        android:background="@drawable/bg"
-        android:textColor="?attr/tintcolor"
-        android:textIsSelectable="false"
-        android:textSize="12sp" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="9dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/alarm_on" />
 
 </RelativeLayout>

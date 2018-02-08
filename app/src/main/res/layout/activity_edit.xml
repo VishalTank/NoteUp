@@ -1,123 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
     tools:context=".EditNote">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:elevation="4dp">
+        app:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativelayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="72dp"
-            android:background="?attr/backgroundColor"
             android:layout_gravity="top"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/MyActionBarTheme"/>
+            android:background="?attr/backgroundColor"
+            android:theme="@style/MyActionBarTheme"
+            app:contentInsetStart="72dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        app:layout_constraintBottom_toTopOf="@id/format"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".EditNote"
-            android:layout_below="@id/view">
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <EditText
-                android:id="@+id/etTextTitle"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:hint="Title"
-                android:paddingTop="10dp"
-                android:singleLine="true"
-                android:textAlignment="textStart"
-                android:textColor="?attr/tintcolor"
-                android:textColorHint="?attr/noteColor"
-                android:textSize="24sp" />
-
-            <ScrollView
-                android:id="@+id/scrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/etTextTitle"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp">
+                android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/etText"
+                    android:id="@+id/etTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Add note here...."
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:hint="Title (optional)"
+                    android:paddingTop="10dp"
+                    android:singleLine="true"
                     android:textAlignment="textStart"
                     android:textColor="?attr/tintcolor"
-                    android:textColorHint="?attr/noteColor" />
+                    android:textColorHint="?attr/noteColor"
+                    android:textSize="24sp" />
 
-            </ScrollView>
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp">
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/aSwitch"
-                android:theme="@style/SwitchCompatStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:text="Set Reminder"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                    <EditText
+                        android:id="@+id/etText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:hint="Add note here...."
+                        android:textAlignment="textStart"
+                        android:textColor="?attr/tintcolor"
+                        android:textColorHint="?attr/noteColor" />
 
-            <TextView
-                android:id="@+id/rem_time1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:text="Reminder Time : "
-                android:textAlignment="textStart"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp" />
+                </android.support.v4.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/rem_time2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Not Set."
-                android:textAlignment="textStart"
-                android:textColor="?attr/tintcolor"
-                android:textSize="16sp" />
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/aSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Set Reminder"
+                    android:textColor="?attr/tintcolor"
+                    android:textSize="16sp"
+                    android:theme="@style/SwitchCompatStyle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
+                <RelativeLayout
+                    android:id="@+id/reminderTimeShower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/reminder_time_string"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:minHeight="10dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Reminder Time : "
+                        android:textAlignment="textStart"
+                        android:textColor="?attr/tintcolor"
+                        android:textSize="16sp" />
 
-
+                    <TextView
+                        android:id="@+id/reminder_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="40dp"
+                        android:text="Not Set."
+                        android:textAlignment="textStart"
+                        android:textColor="?attr/tintcolor"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/format"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/bold"
@@ -154,16 +182,6 @@
             android:textColor="?attr/tintcolor"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/strike"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="?attr/buttoncolor"
-            android:text="S"
-            android:textColor="?attr/tintcolor"
-            android:textSize="18sp" />
     </LinearLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
