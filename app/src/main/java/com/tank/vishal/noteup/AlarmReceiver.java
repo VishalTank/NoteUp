@@ -26,37 +26,31 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.app_icon)
                 .setContentTitle("A Note needs to be reviewed!")
-                .setContentText(intent.getStringExtra("title"));
+                .setContentText(intent.getStringExtra("ARtitle"));
+
 
 
         //View Note Action button in the notification.
-        Intent viewIntent = new Intent(context,MainActivity.class);
+        Intent viewIntent = new Intent(context,ShowNote.class);
+        viewIntent.putExtra("title",intent.getStringExtra("ARtitle"));
+        viewIntent.putExtra("name",intent.getStringExtra("ARname"));
+        viewIntent.putExtra("date",intent.getStringExtra("ARdate"));
+        viewIntent.putExtra("reminder_id",intent.getIntExtra("ARreminder_id",0));
 
-        viewIntent.putExtra("setTitle",intent.getStringExtra("title"));
-        viewIntent.putExtra("setName",intent.getStringExtra("name"));
-        viewIntent.putExtra("setTime",intent.getStringExtra("time"));
-        viewIntent.putExtra("setReminderID",intent.getIntExtra("reminder_id",0));
-        viewIntent.putExtra("isSet","yes");
-
-        //viewIntent.setAction("View Note");
-        PendingIntent viewPendingIntent = PendingIntent.getActivity(context,intent.getIntExtra("reminder_id",0),viewIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        //mBuilder.addAction(0,"View Note",viewPendingIntent);
+        PendingIntent viewPendingIntent = PendingIntent.getActivity(context,intent.getIntExtra("ARreminder_id",0),viewIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(viewPendingIntent);
+
 
 
         //Add Note action button in the notification.
         Intent addIntent = new Intent(context,EditNote.class);
-        //addIntent.setAction("Add Note");
-
-        PendingIntent addPendingIntent = PendingIntent.getActivity(context, intent.getIntExtra("reminder_id",0), addIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent addPendingIntent = PendingIntent.getActivity(context, intent.getIntExtra("ARreminder_id",0), addIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.addAction(0, "Add Note", addPendingIntent);
 
-
-        //Delete Note action button in the notification.
 
 
         //Throws notifications.
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(intent.getIntExtra("reminder_id",0), mBuilder.build());
+        mNotificationManager.notify(intent.getIntExtra("ARreminder_id",0), mBuilder.build());
     }
 }

@@ -22,16 +22,15 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView tv_names,time,noti_time;
-        ImageView alarm_on;
+        ImageView alarm_on,pin;
 
         ViewHolder(View view) {
             super(view);
-            tv_names = (TextView)view.findViewById(R.id.tv_names);
+            tv_names = (TextView)view.findViewById(R.id.note);
             time = (TextView)view.findViewById(R.id.creation_time);
             noti_time = (TextView) view.findViewById(R.id.noti_time);
             alarm_on = (ImageView) view.findViewById(R.id.alarm_on);
-
-            //linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout);
+            //pin = (ImageView) view.findViewById(R.id.alarm_on);
 
             view.setOnCreateContextMenuListener(this);
         }
@@ -68,8 +67,11 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         viewHolder.time.setText(dataModel.getDate());
 
+        /*if(dataModel.getBookmark() == 1)
+            viewHolder.pin.setVisibility(View.VISIBLE);
+        else
+            viewHolder.pin.setVisibility(View.INVISIBLE);
 
-        /*
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,12 +84,10 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         String dateString = formatter.format(new Date(dataModel.getReminderTime()));
 
         if(dataModel.getReminderTime() > System.currentTimeMillis()) {
+            viewHolder.noti_time.setVisibility(View.VISIBLE);
             viewHolder.noti_time.setText(dateString);
             viewHolder.alarm_on.setVisibility(View.VISIBLE);
         }
-        else
-            viewHolder.noti_time.setText("Not Set!" + dataModel.getReminderID());
-
     }
 
 

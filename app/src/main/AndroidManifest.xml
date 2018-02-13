@@ -22,11 +22,9 @@
         <activity
             android:name=".EditNote"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".AboutActivity"
             android:theme="@style/AppTheme" />
-
 
         <receiver
             android:name=".AlarmReceiver"
@@ -40,6 +38,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".ShowNote"></activity>
     </application>
 
 </manifest>

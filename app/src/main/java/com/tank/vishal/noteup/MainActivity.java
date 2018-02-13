@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String isSet;
     private Integer rem_reminder_id;
     private long rem_reminder_time;
+    private long rem_time;
 
 
     @Override
@@ -90,13 +91,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //When User clicks on the notification , Control will flow to here.
-        isSet = getIntent().getStringExtra("isSet");
+        /*isSet = getIntent().getStringExtra("isSet");
 
         if(isSet != null && isSet.equalsIgnoreCase("yes")) {
             isSet = null;
             showChangeLangDialog(getIntent().getStringExtra("setTitle"), Html.fromHtml(getIntent().getStringExtra("setName")),getIntent().getStringExtra("setTime"), 0);
-        }
-
+        }*/
     }
 
 
@@ -130,22 +130,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(View view, int position) {
                         dm = item_list.get(position);
-                        showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
+                        //showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
+
+                        Intent show_note = new Intent(MainActivity.this,ShowNote.class);
+
+                        show_note.putExtra("date",dm.getDate());
+                        show_note.putExtra("title",dm.getTitle());
+                        show_note.putExtra("name",dm.getName());
+                        show_note.putExtra("reminder_time",dm.getReminderTime());
+                        startActivity(show_note);
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-                       /* dm = item_list.get(position);
+                        /*dm = item_list.get(position);
                         database = new DatabaseHelper(MainActivity.this);
 
                         int bm = (dm.getBookmark() == 0) ? 1 : 0;
                         database.bookM(dm.getTime(), bm);
 
-                        datamodel = database.getData();
-                        adapter = new DataAdapter(datamodel);
+                        item_list = database.getData();
+                        adapter = new DataAdapter(item_list);
                         recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                        */
+                        adapter.notifyDataSetChanged();*/
                     }
                 })
         );
@@ -181,10 +188,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         public void onClick(View view) {
                             database.insertNote(rem_title,rem,rem_reminder_time,rem_reminder_id);
 
+                            rem_time = System.currentTimeMillis();
+
                             Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
-                            intent.putExtra("title", rem_title);
-                            intent.putExtra("name", rem);
-                            intent.putExtra("time", System.currentTimeMillis());
                             intent.putExtra("reminder_id",rem_reminder_id);
 
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -196,6 +202,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 alarmManager.set(AlarmManager.RTC_WAKEUP, rem_reminder_time, pendingIntent);
                                 Toast.makeText(MainActivity.this, "RESET "+ rem_reminder_id + " " + rem_reminder_time, Toast.LENGTH_SHORT).show();
                             }
+
+                            Intent i = new Intent(MainActivity.this,ShowNote.class);
+                            i.putExtra("title", rem_title);
+                            i.putExtra("name", rem);
+                            i.putExtra("time", rem_time);
+
 
                             item_list = database.getData();
                             adapter = new DataAdapter(item_list);
@@ -232,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     i.putExtra("title", dm.getTitle());
                     i.putExtra("name", dm.getName());
                     i.putExtra("time", dm.getTime());
-                    i.putExtra("notitime",dm.getReminderTime());
+                    i.putExtra("reminder_time",dm.getReminderTime());
                     i.putExtra("reminder_id",dm.getReminderID());
                     startActivity(i);
 
