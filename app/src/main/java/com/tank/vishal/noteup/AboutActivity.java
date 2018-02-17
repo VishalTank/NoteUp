@@ -22,13 +22,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.net.URI;
+
 public class AboutActivity extends AppCompatActivity {
 
-    ImageButton dev;
-    ImageButton github;
-    AnimationDrawable anim,anim1;
-    ImageView img;
-    private ImageButton twitter;
+    private AnimationDrawable anim;
+    private ImageButton facebook,github,twitter,google_plus,facebook1,github1,twitter1,website;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +42,27 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
 
-        CardView mainCardView = (CardView) findViewById(R.id.mainCardView);
+        CardView mainCardView = findViewById(R.id.mainCardView);
         mainCardView.setCardBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#323232") : Color.parseColor("#ffffff"));
 
-        CardView mainCardView1 = (CardView) findViewById(R.id.mainCardView1);
+        CardView mainCardView1 = findViewById(R.id.mainCardView1);
         mainCardView1.setCardBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#323232") : Color.parseColor("#ffffff"));
 
-        RelativeLayout container = (RelativeLayout) findViewById(R.id.main_layout);
+        CardView ratingBar = findViewById(R.id.ratingBar);
+        ratingBar.setCardBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#323232") : Color.parseColor("#ffffff"));
 
-        anim = (AnimationDrawable) container.getBackground();
+        CardView feedbackBar = findViewById(R.id.feedbackBar);
+        feedbackBar.setCardBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#323232") : Color.parseColor("#ffffff"));
+
+
+        RelativeLayout relativeLayout = findViewById(R.id.main_layout);
+
+        anim = (AnimationDrawable) relativeLayout.getBackground();
         anim.setEnterFadeDuration(1800);
         anim.setExitFadeDuration(3000);
         anim.start();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about);
+        Toolbar toolbar = findViewById(R.id.toolbar_about);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("About Developers");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,13 +70,40 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
 
-        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.WHITE : Color.parseColor("#404040"));
+        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#404040"));
 
-        dev = (ImageButton) findViewById(R.id.dev_button);
-        github = (ImageButton) findViewById(R.id.git_button);
-        twitter = (ImageButton) findViewById(R.id.twitter);
+        feedbackBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        dev.setOnClickListener(new View.OnClickListener() {
+                /*String mailto = "mailto:" + Uri.encode(getString(R.string.dev_mail)) +
+                        "?cc=" + "alice@example.com" +
+                        "&subject=" + Uri.encode(getString(R.string.feedback_subject)) +
+                        "&body=" + Uri.encode(getString(R.string.feedback_message));
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse(mailto));
+
+                startActivity(emailIntent);*/
+
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getString(R.string.dev_mail) });
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
+                intent.putExtra(Intent.EXTRA_TEXT   , getString(R.string.feedback_message));
+
+                startActivity(Intent.createChooser(intent,"Send feedback"));
+
+
+            }
+        });
+
+        facebook = findViewById(R.id.fb_button);
+        github = findViewById(R.id.git_button);
+        twitter = findViewById(R.id.twitter_button);
+        google_plus = findViewById(R.id.google_plus_button);
+
+        facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = "https://www.facebook.com/vishal.tank.739";
@@ -79,6 +112,7 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
         github.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,15 +124,76 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
+
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://twitter.com/Hawk19101997";
+                String url = "https://twitter.com/WizWarrior_";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
             }
         });
+
+        google_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://plus.google.com/u/0/115177000184685126578";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+
+        facebook1 = findViewById(R.id.fb_button1);
+        github1 = findViewById(R.id.git_button1);
+        twitter1 = findViewById(R.id.twitter1);
+        website = findViewById(R.id.website);
+
+
+        facebook1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://www.facebook.com/vishal.tank.739";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+
+        github1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://github.com/VishalTank";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+
+        twitter1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://twitter.com/WizWarrior_";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://flutrr.in/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
     }
 
     @Override

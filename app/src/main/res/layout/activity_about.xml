@@ -12,19 +12,26 @@
         android:id="@+id/view_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="4dp">
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/main_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_about"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="top"
-            android:background="?attr/backgroundColor"
+            android:background="?attr/noteBackgroundColor"
             android:theme="@style/MyActionBarTheme"
             app:contentInsetStart="72dp"
+            app:elevation="4dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
+
+
 
     <RelativeLayout
         android:id="@+id/main_layout"
@@ -37,34 +44,152 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/feedbackBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="16dp"
+                    android:background="?attr/mainBackgroundColor"
+                    android:foreground="@drawable/custom_icons_ripple">
+
+                    <RelativeLayout
+                        android:id="@+id/feedbackLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="12dp">
+
+                        <ImageView
+                            android:id="@+id/feedbackImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/feedback" />
+
+                        <TextView
+                            android:id="@+id/feedBackText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center"
+                            android:text="@string/feedback"
+                            android:textAlignment="center"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/ratingBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="bottom"
+                    android:elevation="16dp"
+                    android:background="?attr/mainBackgroundColor">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="16dp"
+                        android:text="Rate and share NoteUp!"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/ratingCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="24dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="60dp">
+
+
+                        <LinearLayout
+                            android:id="@+id/ratingButtons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="?attr/mainBackgroundColor"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+
+                            <ImageButton
+                                android:id="@+id/rate_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_ripple"
+                                android:padding="20dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/rate" />
+
+
+                            <ImageButton
+                                android:id="@+id/share_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_ripple"
+                                android:padding="20dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/share" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/mainCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    app:cardElevation="8dp">
+                    android:elevation="16dp">
+
 
                     <LinearLayout
                         android:id="@+id/ll1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="4dp">
+
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/imageView"
@@ -79,6 +204,7 @@
                             app:cardElevation="24dp"
                             android:layout_marginTop="10dp">
 
+
                             <ImageView
                                 android:id="@+id/img"
                                 android:layout_width="match_parent"
@@ -88,6 +214,8 @@
 
                         </android.support.v7.widget.CardView>
 
+
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -95,9 +223,11 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/vishal_tank"
                             android:textAlignment="center"
-                            android:textColor="?attr/tintcolor"
+                            android:textColor="?attr/toggleColor"
                             android:textSize="21sp"
                             android:textStyle="bold" />
+
+
 
                         <TextView
                             android:id="@+id/textView"
@@ -107,10 +237,12 @@
                             android:layout_marginTop="10dp"
                             android:text="Creator of NoteUp!"
                             android:textAlignment="center"
-                            android:textColor="?attr/tintcolor"
+                            android:textColor="?attr/toggleColor"
                             android:textSize="17sp" />
 
                     </LinearLayout>
+
+
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/CardView"
@@ -119,64 +251,63 @@
                         android:layout_centerHorizontal="true"
                         android:elevation="24dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginTop="180dp"
-                        app:cardElevation="24dp">
+                        android:layout_marginTop="180dp">
+
 
                         <LinearLayout
                             android:id="@+id/iconsRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="?attr/backgroundColor"
+                            android:background="?attr/mainBackgroundColor"
                             android:gravity="center_horizontal"
-                            android:orientation="horizontal">
-
-
-                            <ImageButton
-                                android:id="@+id/rate_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:padding="20dp"
-                                app:srcCompat="@drawable/rate" />
+                            android:orientation="horizontal"
+                            android:weightSum="4">
 
                             <ImageButton
-                                android:id="@+id/dev_button"
+                                android:id="@+id/google_plus_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="20dp"
-                                android:background="@android:color/transparent"
+                                android:layout_weight="1"
+                                android:background="@drawable/custom_ripple"
+                                app:srcCompat="@drawable/google_plus" />
 
+                            <ImageButton
+                                android:id="@+id/fb_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="20dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/custom_ripple"
                                 app:srcCompat="@drawable/facebook" />
+
 
                             <ImageButton
                                 android:id="@+id/git_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
+                                android:layout_weight="1"
                                 android:padding="20dp"
                                 app:srcCompat="@drawable/github" />
 
+
                             <ImageButton
-                                android:id="@+id/twitter"
+                                android:id="@+id/twitter_button"
                                 android:layout_width="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:padding="20dp"
                                 app:srcCompat="@drawable/twitter" />
 
-                            <ImageButton
-                                android:id="@+id/shar_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:padding="20dp"
-                                app:srcCompat="@drawable/share" />
-
                         </LinearLayout>
+
                     </android.support.v7.widget.CardView>
 
                 </android.support.v7.widget.CardView>
+
 
 
                 <android.support.v7.widget.CardView
@@ -184,13 +315,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    app:cardElevation="8dp">
+                    android:elevation="16dp">
+
 
                     <LinearLayout
                         android:id="@+id/ll11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_margin="4dp">
+
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/imageView1"
@@ -205,6 +339,7 @@
                             app:cardElevation="24dp"
                             android:layout_marginTop="10dp">
 
+
                             <ImageView
                                 android:id="@+id/img1"
                                 android:layout_width="match_parent"
@@ -214,6 +349,7 @@
 
                         </android.support.v7.widget.CardView>
 
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -221,9 +357,10 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/shreedan_rudachh"
                             android:textAlignment="center"
-                            android:textColor="?attr/tintcolor"
+                            android:textColor="?attr/toggleColor"
                             android:textSize="21sp"
                             android:textStyle="bold" />
+
 
                         <TextView
                             android:id="@+id/textView1"
@@ -233,10 +370,11 @@
                             android:layout_marginTop="10dp"
                             android:text="Creator of www.flutrr.in"
                             android:textAlignment="center"
-                            android:textColor="?attr/tintcolor"
+                            android:textColor="?attr/toggleColor"
                             android:textSize="17sp" />
 
                     </LinearLayout>
+
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/CardView1"
@@ -245,64 +383,68 @@
                         android:layout_centerHorizontal="true"
                         android:elevation="24dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginTop="180dp"
-                        app:cardElevation="24dp">
+                        android:layout_marginTop="180dp">
+
 
                         <LinearLayout
                             android:id="@+id/iconsRow1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="?attr/backgroundColor"
+                            android:background="?attr/mainBackgroundColor"
                             android:gravity="center_horizontal"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:weightSum="4">
 
 
                             <ImageButton
-                                android:id="@+id/rate_button1"
+                                android:id="@+id/fb_button1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/rate" />
-
-                            <ImageButton
-                                android:id="@+id/dev_button1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:padding="20dp"
+                                android:layout_weight="1"
                                 app:srcCompat="@drawable/facebook" />
+
 
                             <ImageButton
                                 android:id="@+id/git_button1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
                                 android:padding="20dp"
+                                android:layout_weight="1"
                                 app:srcCompat="@drawable/github" />
+
 
                             <ImageButton
                                 android:id="@+id/twitter1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
                                 android:padding="20dp"
+                                android:layout_weight="1"
                                 app:srcCompat="@drawable/twitter" />
 
                             <ImageButton
-                                android:id="@+id/shar_button1"
+                                android:id="@+id/website"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
+                                android:background="@drawable/custom_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/share" />
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/website" />
+
 
                         </LinearLayout>
+
                     </android.support.v7.widget.CardView>
 
                 </android.support.v7.widget.CardView>
+
+
             </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
     </RelativeLayout>

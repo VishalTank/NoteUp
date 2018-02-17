@@ -6,90 +6,157 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/mainBackgroundColor"
     tools:context="com.tank.vishal.noteup.ShowNote">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/view_ShowNote"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:elevation="4dp">
+        app:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_ShowNote"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="top"
-            android:background="?attr/backgroundColor"
+            android:background="?attr/noteBackgroundColor"
             android:theme="@style/MyActionBarTheme"
             app:contentInsetStart="72dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </android.support.design.widget.AppBarLayout>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:orientation="vertical"
-    android:background="@drawable/custom_dialog_shape"
-    android:elevation="24dp">
-
-
-    <TextView
-        android:id="@+id/date1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padd_10"
-        android:padding="@dimen/padd_10"
-        android:textAlignment="center"
-        android:textColor="?attr/tintcolor"
-        android:textSize="12sp" />
+        android:layout_height="match_parent"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="?attr/tintcolor" />
+        <RelativeLayout
+            android:id="@+id/dateCard_ShowNote"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:elevation="2dp">
 
-    <TextView
-        android:id="@+id/note_title1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padd_10"
-        android:layout_marginTop="@dimen/padd_10"
-        android:padding="@dimen/padd_10"
-        android:textColor="?attr/tintcolor"
-        android:textSize="22sp" />
+            <TextView
+                android:id="@+id/date_ShowNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="?attr/tintcolor" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/note_text1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="?attr/tintcolor"
-        android:padding="@dimen/padd_10"
-        android:layout_marginTop="@dimen/padd_10"
-        android:layout_marginBottom="@dimen/padd_10"/>
+        <RelativeLayout
+            android:id="@+id/noteCard_ShowNote"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg"
+            android:layout_below="@id/dateCard_ShowNote"
+            android:layout_above="@id/reminderCard_ShowNote"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:elevation="2dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="?attr/tintcolor" />
+            <TextView
+                android:id="@+id/title_ShowNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                android:gravity="start"
+                android:singleLine="true"
+                android:textAlignment="textStart"
+                android:textColor="?attr/noteTextColor"
+                android:textIsSelectable="true"
+                android:textSize="24sp"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/noti_time1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:layout_marginTop="@dimen/padd_10"
-        android:textColor="?attr/tintcolor"
-        android:padding="@dimen/padd_10"
-        android:textAlignment="center"/>
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@id/title_ShowNote">
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/note_ShowNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="12dp"
+                    android:backgroundTint="?attr/noteBackgroundColor"
+                    android:focusable="true"
+                    android:scrollbars="vertical"
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/noteTextColor"
+                    android:textIsSelectable="true"
+                    android:textSize="19sp" />
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/reminderCard_ShowNote"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/bg"
+            android:elevation="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Reminder Time : "
+                android:textAlignment="textStart"
+                android:textColor="?attr/reminderTextColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/reminder_ShowNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/reminder_time_string"
+                android:layout_alignBottom="@+id/reminder_time_string"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
+                android:textAlignment="textEnd"
+                android:textColor="?attr/reminderTextColor"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

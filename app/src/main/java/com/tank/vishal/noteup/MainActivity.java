@@ -16,9 +16,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -26,18 +23,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Html;
-import android.text.Spanned;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -51,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String rem,rem_title;
     private Context context;
     private Toolbar toolbar;
-    private boolean usedarkTheme,isClicked;
-    private String isSet;
+    private boolean isClicked;
     private Integer rem_reminder_id;
     private long rem_reminder_time;
     private long rem_time;
@@ -62,11 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         //Theme Setter
         SharedPreferences preferences = getSharedPreferences("prefs", MODE_PRIVATE);
-        usedarkTheme = preferences.getBoolean("dark_theme", false);
+        boolean useDarkTheme = preferences.getBoolean("dark_theme", false);
 
-        if(usedarkTheme) {
+        if(useDarkTheme) {
             setTheme(R.style.DarkTheme);
-            isClicked = usedarkTheme;
+            isClicked = useDarkTheme;
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         else
@@ -75,19 +65,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        SharedPreferences settings = getSharedPreferences("prefs", 0);
+        boolean firstRun = settings.getBoolean("firstRun", true);
+
+        if(firstRun) {
+            Intent i = new Intent(this,AppIntroActivity.class);
+            startActivity(i);
+        }
+
+
         initViews();
 
         //Custom Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        toolbar = findViewById(R.id.toolbar_MainActivity);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.app_name));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(4);
         getDelegate().setHandleNativeActionModesEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_icon);
-        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#f0cd00")) : new ColorDrawable(Color.parseColor("#fadb24")));
+        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#03a9f4")) : new ColorDrawable(Color.parseColor("#03a9f4")));
 
-        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#ffffff") : Color.parseColor("#404040"));
+        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#303030"));
 
 
         //When User clicks on the notification , Control will flow to here.
@@ -105,15 +105,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initViews() {
 
 
-        item_list = new ArrayList<DataModel>();
+        item_list = new ArrayList<>();
         database = new DatabaseHelper(this);
         item_list = database.getData();
         adapter = new DataAdapter(item_list);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+        recyclerView = findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -131,6 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onItemClick(View view, int position) {
                         dm = item_list.get(position);
                         //showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        dm = item_list.get(position);
 
                         Intent show_note = new Intent(MainActivity.this,ShowNote.class);
 
@@ -139,12 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         show_note.putExtra("name",dm.getName());
                         show_note.putExtra("reminder_time",dm.getReminderTime());
                         startActivity(show_note);
-                    }
 
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        /*dm = item_list.get(position);
-                        database = new DatabaseHelper(MainActivity.this);
+                        /*database = new DatabaseHelper(MainActivity.this);
 
                         int bm = (dm.getBookmark() == 0) ? 1 : 0;
                         database.bookM(dm.getTime(), bm);
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (direction == ItemTouchHelper.LEFT){
 
                     dm = item_list.get(position);
+                    //Store REMOVED items temporarily.
                     rem_title = dm.getTitle();
                     rem = dm.getName();
                     rem_reminder_time = dm.getReminderTime();
@@ -186,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Snackbar sb = Snackbar.make(viewHolder.itemView, "Removed " + dm.getTitle(), Snackbar.LENGTH_LONG).setDuration(5000).setAction("UNDO", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            database.insertNote(rem_title,rem,rem_reminder_time,rem_reminder_id);
 
+                            database.insertNote(rem_title,rem,rem_reminder_time,rem_reminder_id);
                             rem_time = System.currentTimeMillis();
 
                             Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
@@ -209,14 +211,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             i.putExtra("time", rem_time);
 
 
+
                             item_list = database.getData();
                             adapter = new DataAdapter(item_list);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                         }
                     });
-                    sb.setActionTextColor(Color.GREEN);
+
+                    View sbView = sb.getView();
+
+                    int sbID = android.support.design.R.id.snackbar_text;
+                    TextView tv = sbView.findViewById(sbID);
+
+                    sbView.setBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#dddddd") : Color.parseColor("#303030"));
+                    tv.setTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dddddd"));
+                    sb.setActionTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dddddd"));
                     sb.show();
+
 
 
                     Intent cancelServiceIntent = new Intent(MainActivity.this, AlarmReceiver.class);
@@ -229,12 +241,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(MainActivity.this, "CANCELED "+ rem_reminder_id + " " + rem_reminder_time, Toast.LENGTH_SHORT).show();
                     }
 
+
                     database.deleteNote(dm);
                     item_list = database.getData();
                     adapter = new DataAdapter(item_list);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
+
                 //If user swipes to right , EditActivity opens.
                 else {
 
@@ -290,61 +304,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
                         c.drawBitmap(icon,null,icon_dest,p);
                     }
-
-                    /*icon = BitmapFactory.decodeResource(getResources(), R.drawable.edit);
-                    icon1 = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
-
-                    if(dX > 0){
-                        p.setColor(Color.parseColor("#ffffff"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
-
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
-                    } else {
-                        p.setColor(Color.parseColor("#ffffff"));
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background,p);
-
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon1,null,icon_dest,p);
-                    }*/
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
-
-
-
-    //Focus on the Note shows its related info in a dialogBox
-    public void showChangeLangDialog(String text_title, Spanned text, String date, long notidate) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this,R.style.DialogTheme);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-
-        dialogBuilder.setView(dialogView);
-
-        TextView title = (TextView) dialogView.findViewById(R.id.note_title);
-        TextView note = (TextView) dialogView.findViewById(R.id.note_text);
-        TextView datetext = (TextView) dialogView.findViewById(R.id.date);
-        TextView noti_time = (TextView) dialogView.findViewById(R.id.noti_time);
-        //TextView reminder_id = (TextView) dialogView.findViewById(R.id.reminder_id);
-
-        title.setText(text_title);
-        note.setText(text);
-        datetext.setText(date);
-
-        if(notidate > System.currentTimeMillis())
-            noti_time.setText("Reminder time : " + new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(notidate)));
-        else
-            noti_time.setText(R.string.ex);
-
-        AlertDialog b = dialogBuilder.create();
-        b.show();
     }
 
 
@@ -387,6 +352,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case android.R.id.home:
                 toggleTheme(!isClicked);
                 return true;
+
+
             case R.id.clear_db:
                 AlertDialog.Builder alert = new AlertDialog.Builder(this, (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? R.style.Theme_AppCompat_DayNight_Dialog : R.style.Theme_AppCompat_Light_Dialog);
                 alert.setMessage("Are you sure you want to clear the whole database?");
@@ -399,6 +366,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         reminder_id_list = database.getAllReminderIDs();
 
                         for(int x : reminder_id_list) {
@@ -414,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         database.truncate();
                         initViews();
+
                     }
                 }).create();
 
@@ -428,11 +397,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 return true;
 
+
             case R.id.about:
                 Intent i = new Intent(this,AboutActivity.class);
                 startActivity(i);
                 return true;
-            default:
+
+
+            case R.id.help:
+                Intent i1 = new Intent(this,AppIntroActivity.class);
+                startActivity(i1);
+                return true;
+
+
+             default:
                 return super.onOptionsItemSelected(item);
         }
     }

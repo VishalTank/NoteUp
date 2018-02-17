@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DATABASE = "database2.db";
+    private static String DATABASE = "database3.db";
     private static String TABLE = "NoteTable";
     private static String TITLE = "title";
     private static String NAME = "name";
@@ -90,13 +90,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE, null, null);
     }
 
-    void bookM(Long time, int b) {
+    /*void bookM(Long time, int b) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         String d = Long.toString(time);
         contentValues.put(BOOKMARK, b);
         db.update(TABLE, contentValues, "time = ?", new String[]{d});
-    }
+    }*/
 
     List<DataModel> getData() {
 
@@ -133,8 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-
-    public List<Integer> getAllReminderIDs() {
+    List<Integer> getAllReminderIDs() {
 
         ArrayList<Integer> arrayList = new ArrayList<>();
 

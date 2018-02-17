@@ -1,28 +1,30 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#fadb24</item>
-        <item name="colorPrimaryDark">#cbb329</item>
-        <item name="backgroundColor">#fff</item>
-        <item name="cardViewBackground">#e5e5e5</item>
-        <item name="backgroundShade">#ccc</item>
+        <item name="colorPrimary">#03a9f4</item>
+        <item name="colorPrimaryDark">#007ac1</item>
+        <item name="mainBackgroundColor">#e5e5e5</item>
+        <item name="noteBackgroundColor">#fff</item>
+        <item name="noteShadowColor">#ccc</item>
         <item name="noteColor">#546673</item>
-        <item name="tintcolor">#404040</item>
-        <item name="buttoncolor">#fadb24</item>
+        <item name="noteTextColor">#000</item>
         <item name="colorAccent">#e2e2e2</item>
-        <item name="noteBackground">#DEF2FF</item>
-        <item name="iconsColor">#616161</item>
-        <item name="dialogBackground">#eeeeee</item>
-        <item name="fab">#fadb24</item>
-        <item name="rippleColor">#DEF2FF</item>
-        <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
-        <item name="toolbarStyle">@style/MyToolBarStyle</item>
-        <item name="actionModeStyle">@style/MyActionModeStyle</item>
-
+        <item name="iconsColor">#303030</item>
+        <item name="dialogBackgroundColor">#eeeeee</item>
+        <item name="fabColor">#258bc7</item>
+        <item name="rippleColor">#333</item>
+        <item name="iconsRippleColor">#83d8ff</item>
+        <item name="toggleColor">#303030</item>
+        <item name="reminderTextColor">#258bc7</item>
+        <item name="menuBackgroundColor">#202020</item>
+        <item name="hintColor">#909090</item>
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogThemeLight</item>
         <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogThemeLight</item>
 
+        <item name="toolbarStyle">@style/MyToolBarStyle</item>
+        <item name="actionModeStyle">@style/MyActionModeStyle</item>
+        <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -33,35 +35,34 @@
     </style>
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
     <!-- Dark theme. -->
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimary">#f0cd00</item>
-        <item name="colorPrimaryDark">#cbb329</item>
-        <item name="backgroundColor">#323232</item>
-        <item name="cardViewBackground">#484848</item>
-        <item name="backgroundShade">#555</item>
+        <item name="colorPrimary">#03a9f4</item>
+        <item name="colorPrimaryDark">#007ac1</item>
+        <item name="mainBackgroundColor">#484848</item>
+        <item name="noteBackgroundColor">#323232</item>
+        <item name="noteShadowColor">#555</item>
         <item name="noteColor">#546673</item>
-        <item name="tintcolor">#ffffff</item>
-        <item name="buttoncolor">#f0cd00</item>
+        <item name="noteTextColor">#fff</item>
         <item name="colorAccent">#e2e2e2</item>
         <item name="iconsColor">#f2f2f2</item>
-        <item name="dialogBackground">#262626</item>
-        <item name="fab">#f0cd00</item>
-        <item name="rippleColor">#DEF2FF</item>
-        <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
-        <item name="toolbarStyle">@style/MyToolBarStyle</item>
-        <item name="actionModeStyle">@style/MyActionModeStyle</item>
-
+        <item name="dialogBackgroundColor">#262626</item>
+        <item name="fabColor">#007ac1</item>
+        <item name="rippleColor">#ccc</item>
+        <item name="iconsRippleColor">#83d8ff</item>
+        <item name="toggleColor">#fff</item>
+        <item name="reminderTextColor">#258bc7</item>
+        <item name="menuBackgroundColor">#202020</item>
+        <item name="hintColor">#d0d0d0</item>
 
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogThemeDark</item>
         <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogThemeDark</item>
 
+        <item name="toolbarStyle">@style/MyToolBarStyle</item>
+        <item name="actionModeStyle">@style/MyActionModeStyle</item>
+        <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -71,15 +72,75 @@
         <item name="android:itemTextAppearance">@style/MyMenuTextApearance</item>
     </style>
 
-    <style name="DarkTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
-    <style name="DarkTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
 
     <!-- Menu's text color -->
     <style name="MyMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">?attr/backgroundColor</item>
+        <item name="android:textColor">?attr/mainBackgroundColor</item>
     </style>
+
+
+
+
+    <!-- Fading animation while changing activities -->
+    <style name="WindowAnimationTransition" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+
+    <!-- Switch's color change according to this style. -->
+    <style name="SwitchCompatStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimaryDisableOnly">?attr/fabColor</item>
+        <item name="colorAccent">?attr/fabColor</item>
+    </style>
+
+
+
+
+    <!-- ActionBar's theme -->
+    <style name="MyActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+
+        <!-- sets the style for the overflow button -->
+
+        <item name="actionOverflowButtonStyle">@style/MyactionOverflowButtonStyle</item>
+        <item name="android:titleTextStyle">@style/MyActionBarTitle</item>
+        <item name="android:itemBackground">?attr/toggleColor</item>
+    </style>
+
+
+    <!-- This style is where you define the tint color of your overflow menu button -->
+    <style name="MyactionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">?attr/iconsColor</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+
+    <style name="MyActionBarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">?attr/toggleColor</item>
+    </style>
+
+
+
+    <!-- Custom Toolbar style -->
+    <style name="MyToolBarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="maxButtonHeight">48dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="contentInsetStart">16dp</item>
+    </style>
+
+
+    <style name="MyActionModeStyle" parent="Widget.AppCompat.ActionMode">
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
+
+
+
 
 
     <!-- DatePicker's Light theme -->
@@ -121,71 +182,5 @@
     <style name="MyTimePickerDialogThemeDark" parent="android:Theme.Material.Dialog">
         <item name="android:timePickerStyle">@style/MyTimePickerStyleDark</item>
     </style>
-
-
-    <!-- Fading animation while changing activities -->
-    <style name="WindowAnimationTransition" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
-    </style>
-
-
-    <!-- Switch's color change according to this style. -->
-    <style name="SwitchCompatStyle" parent="Theme.AppCompat">
-        <item name="android:textColorPrimaryDisableOnly">#00838f</item>
-        <item name="colorAccent">#e91e63</item>
-    </style>
-
-
-    <!-- View Note dialog. -->
-    <style name="DialogTheme" parent="android:Theme.Material.Dialog">
-        <item name="android:windowBackground">@drawable/custom_dialog_shape</item>
-    </style>
-
-
-    <!-- ActionBar's theme -->
-    <style name="MyActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-
-        <!-- THIS is where you can color the arrow and the overflow button! -->
-        <!-- sets the style for the overflow button -->
-        <item name="actionOverflowButtonStyle">@style/MyactionOverflowButtonStyle</item>
-        <item name="android:titleTextStyle">@style/MyActionBarTitle</item>
-        <item name="android:itemBackground">?attr/tintcolor</item>
-    </style>
-
-
-    <!-- This style is where you define the tint color of your overflow menu button -->
-    <style name="MyactionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">?attr/iconsColor</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingStart">0dp</item>
-        <item name="android:paddingEnd">0dp</item>
-    </style>
-
-
-    <style name="MyActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">?attr/tintcolor</item>
-    </style>
-
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-
-    <!-- Custom Toolbar style -->
-    <style name="MyToolBarStyle" parent="Widget.AppCompat.Toolbar">
-        <item name="maxButtonHeight">48dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-        <item name="contentInsetStart">16dp</item>
-    </style>
-
-
-    <style name="MyActionModeStyle" parent="Widget.AppCompat.ActionMode">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-    </style>
-
 
 </resources>

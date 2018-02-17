@@ -24,7 +24,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.telecom.Call;
 import android.text.Editable;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -90,7 +89,7 @@ public class EditNote extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Edit Note");
+        getSupportActionBar().setTitle("Note Editor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
@@ -214,7 +213,7 @@ public class EditNote extends AppCompatActivity {
                     reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
 
                     isAlreadySet = true;
-                    rem_time.setText(new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(reminder_time));
+                    rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(reminder_time));
 
                 } else if(!isChecked && isAlarmSet) {
 
@@ -249,7 +248,7 @@ public class EditNote extends AppCompatActivity {
             if (name != null) {
 
                 etTextTitle.setText(title);
-                etText.setText(Html.fromHtml(name));
+                etText.setText((name));
 
                 if (noti_time > System.currentTimeMillis()) {
 
@@ -258,7 +257,7 @@ public class EditNote extends AppCompatActivity {
                     aSwitch.setChecked(true);
                     reminder_time = noti_time;
                     reminder_id = noti_id;
-                    rem_time.setText(new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(reminder_time));
+                    rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(reminder_time));
 
                 } else {
 
@@ -301,17 +300,19 @@ public class EditNote extends AppCompatActivity {
                     dataModel.setReminderID(reminder_id);
 
 
-                    if (name == null && title == null)
-                        database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
-                    else
-                        database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
-
+                    if (name == null && title == null) {
+                        database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time, reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                    }else {
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time, reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                    }
                     cancelReminder(reminder_id);
 
                     Intent intent = new Intent(EditNote.this, AlarmReceiver.class);
                     intent.putExtra("ARtitle", etTextTitle.getText().toString());
-                    intent.putExtra("ARname", Html.toHtml(etText.getText()));
-                    intent.putExtra("ARdate", System.currentTimeMillis());
+                    intent.putExtra("ARname", etText.getText().toString());
+                    intent.putExtra("ARdate", originTime);
                     intent.putExtra("ARreminder_id",reminder_id);
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -340,19 +341,19 @@ public class EditNote extends AppCompatActivity {
 
                     //new Note
                     if (name == null && title == null) {
-                        database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
-                        originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
+                        database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time,reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
                     }
                     //Editing an existing Note since name and title are not null.
                     else {
-                        database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
-                        originTime = new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(new Date(System.currentTimeMillis()));
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
                     }
 
 
                     Intent intent = new Intent(this, AlarmReceiver.class);
                     intent.putExtra("ARtitle", etTextTitle.getText().toString());
-                    intent.putExtra("ARname", Html.toHtml(etText.getText()));
+                    intent.putExtra("ARname", etText.getText().toString());
                     intent.putExtra("ARdate", originTime);
                     intent.putExtra("ARreminder_id",reminder_id);
 
@@ -419,14 +420,14 @@ public class EditNote extends AppCompatActivity {
                     reminder_time = 0;
 
                     if (name == null && title == null)
-                        database.insertNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), reminder_time,reminder_id);
+                        database.insertNote(etTextTitle.getText().toString().trim(),etText.getText().toString(), reminder_time,reminder_id);
                     else
-                        database.updateNote(etTextTitle.getText().toString(), Html.toHtml(new SpannableString(etText.getText())), time, reminder_time,reminder_id);
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
 
                     cancelReminder(reminder_id);
                     reminder_id = 0;
 
-                    Toast.makeText(this, "3 canceled reminder_time : "  + reminder_time + "  " + dataModel.getReminderTime(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "3 canceled reminder_time : "  + reminder_time + "  " + dataModel.getReminderTime() + " "+ dataModel.getTitle(), Toast.LENGTH_SHORT).show();
 
                     isAlarmSet = false;
                     isAlreadySet = false;

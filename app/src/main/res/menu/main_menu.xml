@@ -14,4 +14,8 @@
         android:id="@+id/about"
         android:title="About Developers" />
 
+    <item
+        android:id="@+id/help"
+        android:title="How to use?" />
+
 </menu>
