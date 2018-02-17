@@ -8,5 +8,13 @@
     <string name="ok">Ok</string>
     <string name="titttle">title</string>
     <string name="use_darktheme">Use DarkTheme</string>
-    <string name="ex">Reminder is not set!</string>
+    <string name="reminder_Text">Not set.</string>
+    <string name="vishal_tank">Vishal Tank</string>
+    <string name="shreedan_rudachh">Shreedan Rudachh</string>
+    <string name="title_activity_show_note">ShowNote</string>
+    <string name="feedback">Feedback</string>
+    <string name="title_send_feedback">Send feedback</string>
+    <string name="dev_mail">tankvishal19101997@gmail.com</string>
+    <string name="feedback_subject">Feedback of NoteUp!</string>
+    <string name="feedback_message">Hi,\n\nI would like to give you some feedback:</string>
 </resources>
