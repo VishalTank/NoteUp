@@ -12,7 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:layout_marginTop="16dp"
-    android:elevation="4dp">
+    android:elevation="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:maxLines="2"
                 android:textAlignment="textStart"
                 android:textColor="?attr/toggleColor"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -65,11 +65,11 @@
             android:id="@+id/linear_layout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:layout_alignParentEnd="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -88,11 +88,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="?attr/noteBackgroundColor"
+                android:text="19 Oct, 2018  12:12"
                 android:textAlignment="textEnd"
                 android:textColor="?attr/iconsColor"
                 android:textIsSelectable="false"
                 android:textSize="12sp"
                 android:visibility="gone" />
         </LinearLayout>
+
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

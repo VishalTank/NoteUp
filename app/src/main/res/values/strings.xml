@@ -8,7 +8,7 @@
     <string name="ok">Ok</string>
     <string name="titttle">title</string>
     <string name="use_darktheme">Use DarkTheme</string>
-    <string name="ex">Reminder is not set.</string>
+    <string name="reminder_Text">Not set.</string>
     <string name="vishal_tank">Vishal Tank</string>
     <string name="shreedan_rudachh">Shreedan Rudachh</string>
     <string name="title_activity_show_note">ShowNote</string>

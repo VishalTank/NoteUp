@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -93,10 +94,9 @@ public class EditNote extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
+        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#363636")) : new ColorDrawable(Color.parseColor("#f5f5f5")));
 
-        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.WHITE : Color.parseColor("#404040"));
-        //toolbar.setBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.BLACK : Color.WHITE);
-
+        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#EE000000"));
 
         etText = (EditText) findViewById(R.id.etText);
         etTextTitle = (EditText) findViewById(R.id.etTextTitle);
@@ -300,17 +300,19 @@ public class EditNote extends AppCompatActivity {
                     dataModel.setReminderID(reminder_id);
 
 
-                    if (name == null && title == null)
-                        database.insertNote(etTextTitle.getText().toString(), etText.getText().toString(), reminder_time,reminder_id);
-                    else
-                        database.updateNote(etTextTitle.getText().toString(), etText.getText().toString(), time, reminder_time,reminder_id);
-
+                    if (name == null && title == null) {
+                        database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time, reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                    }else {
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time, reminder_id);
+                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                    }
                     cancelReminder(reminder_id);
 
                     Intent intent = new Intent(EditNote.this, AlarmReceiver.class);
                     intent.putExtra("ARtitle", etTextTitle.getText().toString());
                     intent.putExtra("ARname", etText.getText().toString());
-                    intent.putExtra("ARdate", System.currentTimeMillis());
+                    intent.putExtra("ARdate", originTime);
                     intent.putExtra("ARreminder_id",reminder_id);
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -339,12 +341,12 @@ public class EditNote extends AppCompatActivity {
 
                     //new Note
                     if (name == null && title == null) {
-                        database.insertNote(etTextTitle.getText().toString(), etText.getText().toString(), reminder_time,reminder_id);
+                        database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
                     }
                     //Editing an existing Note since name and title are not null.
                     else {
-                        database.updateNote(etTextTitle.getText().toString(), etText.getText().toString(), time, reminder_time,reminder_id);
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
                         originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
                     }
 
@@ -375,9 +377,9 @@ public class EditNote extends AppCompatActivity {
                 //Switch is on and improper time is set.
                 else if (aSwitch.isChecked() && calender.getTimeInMillis() < System.currentTimeMillis()) {
 
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_MinWidth);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this, (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? R.style.Theme_AppCompat_DayNight_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
-                    alert.setTitle("Invalid Reminder Time selected!");
+                    alert.setTitle("Invalid Reminder Time");
                     alert.setMessage("\nPlease set proper Date and Time.");
 
                     final AlertDialog dialog = alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -418,9 +420,9 @@ public class EditNote extends AppCompatActivity {
                     reminder_time = 0;
 
                     if (name == null && title == null)
-                        database.insertNote(etTextTitle.getText().toString(),etText.getText().toString(), reminder_time,reminder_id);
+                        database.insertNote(etTextTitle.getText().toString().trim(),etText.getText().toString(), reminder_time,reminder_id);
                     else
-                        database.updateNote(etTextTitle.getText().toString(), etText.getText().toString(), time, reminder_time,reminder_id);
+                        database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
 
                     cancelReminder(reminder_id);
                     reminder_id = 0;
@@ -471,7 +473,7 @@ public class EditNote extends AppCompatActivity {
                         calender.set(Calendar.HOUR_OF_DAY, hour);
                         calender.set(Calendar.MINUTE, minute);
                         calender.set(Calendar.SECOND, 0);
-                        Toast.makeText(EditNote.this, calender.get(Calendar.HOUR) + ":" + calender.get(Calendar.MINUTE) + " " + calender.get(Calendar.YEAR) + "/" + calender.get(Calendar.MONTH) + 1 + "/" + calender.get(Calendar.DAY_OF_MONTH) + " " + (calender.getTimeInMillis() - System.currentTimeMillis()) / 1000, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditNote.this,"Selected time : " + calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + 1 + "/" + calender.get(Calendar.YEAR)  + " at " + calender.get(Calendar.HOUR) + ":" + calender.get(Calendar.MINUTE), Toast.LENGTH_LONG).show();
                     }
                 }, calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), false).show();
 
@@ -493,5 +495,10 @@ public class EditNote extends AppCompatActivity {
         isAlreadySet = false;
         isAlarmSet = false;
         reminder_id = 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

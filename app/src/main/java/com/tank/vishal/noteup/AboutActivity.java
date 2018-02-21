@@ -68,9 +68,9 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
+        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#363636")) : new ColorDrawable(Color.parseColor("#f5f5f5")));
 
-
-        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#404040"));
+        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#EE000000"));
 
         feedbackBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,5 +225,10 @@ public class AboutActivity extends AppCompatActivity {
                 this.finish();
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

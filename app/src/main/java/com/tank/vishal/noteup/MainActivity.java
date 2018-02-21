@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setElevation(4);
         getDelegate().setHandleNativeActionModesEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_icon);
-        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#03a9f4")) : new ColorDrawable(Color.parseColor("#03a9f4")));
+        getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#9926A69A")) : new ColorDrawable(Color.parseColor("#26A69A")));
 
-        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#303030"));
+        toolbar.setTitleTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#f2f2f2") : Color.parseColor("#EE000000"));
 
 
         //When User clicks on the notification , Control will flow to here.
@@ -130,12 +130,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(View view, int position) {
                         dm = item_list.get(position);
-                        //showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        dm = item_list.get(position);
 
                         Intent show_note = new Intent(MainActivity.this,ShowNote.class);
 
@@ -144,16 +138,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         show_note.putExtra("name",dm.getName());
                         show_note.putExtra("reminder_time",dm.getReminderTime());
                         startActivity(show_note);
+                        //showChangeLangDialog(dm.getTitle(),Html.fromHtml(dm.getName()), dm.getDate(),dm.getReminderTime());
+                    }
 
-                        /*database = new DatabaseHelper(MainActivity.this);
+                    @Override
+                    public void onLongItemClick(View view, int position) {
 
-                        int bm = (dm.getBookmark() == 0) ? 1 : 0;
-                        database.bookM(dm.getTime(), bm);
-
-                        item_list = database.getData();
-                        adapter = new DataAdapter(item_list);
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();*/
                     }
                 })
         );
@@ -162,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initSwipe(){
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
+            }
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -265,6 +260,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
+
+
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
@@ -278,12 +275,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     //Displacement of X-axis is measured , if it is >0 Edit icon is shown as it is technically a swipe to right direction
                     if(dX > 0){
+
                         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                             icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_mode_edit_white_48dp);
-                            p.setColor(Color.parseColor("#262626"));
+                            p.setColor(Color.parseColor("#212121"));
                         }
                         else{
-                            p.setColor(Color.parseColor("#ffffff"));
+                            p.setColor(Color.parseColor("#dddddd"));
                             icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_mode_edit_black_48dp);
                         }
                         RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
@@ -293,11 +291,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                             icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_white_48dp);
-                            p.setColor(Color.parseColor("#262626"));
+                            p.setColor(Color.parseColor("#212121"));
                         }
                         else{
                             icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_black_48dp);
-                            p.setColor(Color.parseColor("#ffffff"));
+                            p.setColor(Color.parseColor("#dddddd"));
                         }
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
                         c.drawRect(background,p);

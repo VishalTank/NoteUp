@@ -21,7 +21,7 @@
             android:background="?attr/noteBackgroundColor"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:contentInsetStart="72dp"
-            app:elevation="4dp"
+            app:elevation="8dp"
             android:layout_gravity="top"/>
 
     </android.support.design.widget.AppBarLayout>
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/bg"
             android:layout_above="@id/reminder"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
@@ -51,14 +51,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="?attr/noteBackgroundColor"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="?attr/noteTextColor"
                 android:gravity="start"
                 android:textColorHint="?attr/hintColor"
                 android:hint="Title (optional)"
                 android:singleLine="true"
                 android:textAlignment="textStart"
-                android:textColor="?attr/toggleColor"
+                android:textColor="?attr/noteTextColor"
                 android:textSize="24sp" />
 
 
@@ -73,25 +73,27 @@
                     android:id="@+id/etText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="?attr/toggleColor"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
                     android:backgroundTint="?attr/noteBackgroundColor"
                     android:hint="Add note here...."
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/noteTextColor"
                     android:textColorHint="?attr/hintColor"
-                    android:layout_margin="8dp"
-                    android:textAlignment="textStart" />
-
+                    android:textSize="19sp" />
             </ScrollView>
+
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/reminder"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:elevation="2dp"
-            android:padding="2dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg"
             android:orientation="vertical">

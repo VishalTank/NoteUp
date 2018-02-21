@@ -7,6 +7,7 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -23,12 +24,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Toast.makeText(context, "Alert : " + random_gen, Toast.LENGTH_LONG).show();
 
         //notification builder
-        NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+        Notification.Builder mBuilder = new Notification.Builder(context)
+                .setSmallIcon(R.drawable.app_icon)
+                .setColor(Color.parseColor("#007d6d"))
+                .setShowWhen(true)
+                .setStyle(new Notification.BigTextStyle())
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.app_icon)
                 .setContentTitle("A Note needs to be reviewed!")
-                .setContentText(intent.getStringExtra("ARtitle"));
+                .setContentText((intent.getStringExtra("ARtitle").trim().length() > 0) ? intent.getStringExtra("ARtitle").trim() : intent.getStringExtra("ARname")
+                );
 
-
+        mBuilder.setDefaults(Notification.DEFAULT_ALL);
 
         //View Note Action button in the notification.
         Intent viewIntent = new Intent(context,ShowNote.class);
@@ -45,7 +53,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Add Note action button in the notification.
         Intent addIntent = new Intent(context,EditNote.class);
         PendingIntent addPendingIntent = PendingIntent.getActivity(context, intent.getIntExtra("ARreminder_id",0), addIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.addAction(0, "Add Note", addPendingIntent);
+        mBuilder.addAction(0, "Add New Note", addPendingIntent);
 
 
 

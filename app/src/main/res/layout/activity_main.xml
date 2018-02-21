@@ -16,12 +16,13 @@
             android:id="@+id/toolbar_MainActivity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:minHeight="?attr/actionBarSize"
             android:layout_gravity="top"
+            android:elevation="8dp"
             android:background="?attr/mainBackgroundColor"
             android:theme="@style/MyActionBarTheme"
             app:contentInsetStart="72dp"
-            app:elevation="4dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/MyPopUpTheme" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -38,9 +39,9 @@
             android:clickable="true"
             android:focusable="true"
             android:layoutAnimation="@anim/layout_animation_fall_down"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:scrollbars="vertical" />
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:scrollbars="vertical"/>
 
     </RelativeLayout>
 
@@ -55,10 +56,11 @@
         android:layout_marginEnd="27dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:elevation="8dp"
+        android:elevation="24dp"
+        android:clickable="true"
         android:src="@drawable/add_file"
         app:backgroundTint="?attr/fabColor"
-        app:rippleColor="?attr/rippleColor" />
+        app:rippleColor="?attr/iconsRippleColor" />
 
 
 </android.support.design.widget.CoordinatorLayout>
