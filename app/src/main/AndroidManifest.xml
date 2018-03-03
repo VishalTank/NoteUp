@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.manghi.notes">
+    package="com.vishaltank.noteup">
+
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.vishaltank.noteup.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,27 +26,29 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EditNote"
-            android:label="NoteUp">
-            <intent-filter>
-                <action android:name="android.intent.action.PROCESS_TEXT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
+
+        <activity
+            android:name=".EditNote"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".ShowNote"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme" />
+
 
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
-        <!--
-             ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+
+
+        <activity android:name=".AppIntroActivity"/>
 
     </application>
-
 </manifest>
