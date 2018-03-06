@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isClicked;
     private Integer rem_reminder_id;
     private long rem_reminder_time,rem_time;
-
+    private AlertDialog delete_dialog,truncate_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
 
                 final int position = viewHolder.getAdapterPosition();
-                DataModel dm;
+                final DataModel dm;
 
                 /* If user swipes to left , Delete. */
                 if (direction == ItemTouchHelper.LEFT){
@@ -175,65 +175,99 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     rem_reminder_time = dm.getReminderTime();
                     rem_reminder_id = dm.getReminderID();
 
-                    adapter.removeItem(position);
 
-                    Snackbar sb = Snackbar.make(viewHolder.itemView, "Removed  " + "\"" + ((dm.getTitle().trim().length() > 0) ? ((dm.getTitle().trim().length() > 15) ? (dm.getTitle().substring(0,15) + "...\"") : (dm.getTitle()) + "\"") : ((dm.getName().trim().length() > 15) ? (dm.getName().substring(0,15) + "...\"") : (dm.getName() + "\""))), Snackbar.LENGTH_LONG).setDuration(30000).setAction("UNDO", new View.OnClickListener() {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? R.style.Theme_AppCompat_DayNight_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+                    alert.setMessage("Delete " + " \""+((dm.getTitle().trim().length() > 0) ? ((dm.getTitle().trim().length() > 20) ? (dm.getTitle().substring(0,20) + "...\" ?") : (dm.getTitle()) + "\" ?") : ((dm.getName().trim().length() > 20) ? (dm.getName().substring(0,20) + "...\" ?") : (dm.getName() + "\" ?"))));
+
+                    delete_dialog = alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
-
-                            /* Re-enter all of the note's data including reminder(IF SET) into database with new time. */
-
-                            database.insertNote(rem_title,rem,rem_reminder_time,rem_reminder_id);
-                            rem_time = System.currentTimeMillis();
-
-
-                            Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
-                            intent.putExtra("ARreminder_id",rem_reminder_id);
-                            intent.putExtra("ARtitle",rem_title);
-                            intent.putExtra("ARname",rem);
-                            intent.putExtra("ARdate",rem_time);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, rem_reminder_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-                            if(alarmManager != null && rem_reminder_time > System.currentTimeMillis())
-                                alarmManager.set(AlarmManager.RTC_WAKEUP, rem_reminder_time, pendingIntent);
-
-
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
                             item_list = database.getData();
                             adapter = new DataAdapter(item_list);
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }
-                    });
+                        }})
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    View sbView = sb.getView();
+                                    reminder_id_list = database.getAllReminderIDs();
+                                    //Delete note
+                                    adapter.removeItem(position);
 
-                    int sbID = android.support.design.R.id.snackbar_text;
-                    TextView tv = sbView.findViewById(sbID);
+                                    Snackbar sb = Snackbar.make(viewHolder.itemView, "Removed  " + "\"" + ((dm.getTitle().trim().length() > 0) ? ((dm.getTitle().trim().length() > 15) ? (dm.getTitle().substring(0,15) + "...\"") : (dm.getTitle()) + "\"") : ((dm.getName().trim().length() > 15) ? (dm.getName().substring(0,15) + "...\"") : (dm.getName() + "\""))), Snackbar.LENGTH_LONG).setDuration(30000).setAction("UNDO", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                    sbView.setBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#dfdfdf") : Color.parseColor("#303030"));
-                    tv.setTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dfdfdf"));
-                    sb.setActionTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dfdfdf"));
-                    sb.show();
+                            /* Re-enter all of the note's data including reminder(IF SET) into database with new time. */
+
+                                            database.insertNote(rem_title,rem,rem_reminder_time,rem_reminder_id);
+                                            rem_time = System.currentTimeMillis();
+
+
+                                            Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+                                            intent.putExtra("ARreminder_id",rem_reminder_id);
+                                            intent.putExtra("ARtitle",rem_title);
+                                            intent.putExtra("ARname",rem);
+                                            intent.putExtra("ARdate",rem_time);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, rem_reminder_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                                            if(alarmManager != null && rem_reminder_time > System.currentTimeMillis())
+                                                alarmManager.set(AlarmManager.RTC_WAKEUP, rem_reminder_time, pendingIntent);
+
+
+                                            item_list = database.getData();
+                                            adapter = new DataAdapter(item_list);
+                                            recyclerView.setAdapter(adapter);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+
+                                    View sbView = sb.getView();
+
+                                    int sbID = android.support.design.R.id.snackbar_text;
+                                    TextView tv = sbView.findViewById(sbID);
+
+                                    sbView.setBackgroundColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#dfdfdf") : Color.parseColor("#303030"));
+                                    tv.setTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dfdfdf"));
+                                    sb.setActionTextColor((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? Color.parseColor("#303030") : Color.parseColor("#dfdfdf"));
+                                    sb.show();
 
 
                     /* Remove the note and reminder(IF SET) permanently. */
-                    Intent cancelServiceIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-                    PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(MainActivity.this, rem_reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    Intent cancelServiceIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+                                    PendingIntent cancelPendingIntent = PendingIntent.getBroadcast(MainActivity.this, rem_reminder_id, cancelServiceIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-                    if (am != null) {
-                        am.cancel(cancelPendingIntent);
-                    }
+                                    if (am != null) {
+                                        am.cancel(cancelPendingIntent);
+                                    }
 
-                    database.deleteNote(dm);
-                    item_list = database.getData();
-                    adapter = new DataAdapter(item_list);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                                    database.deleteNote(dm);
+                                    item_list = database.getData();
+                                    adapter = new DataAdapter(item_list);
+                                    recyclerView.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+
+                                }
+                            }).create();
+
+                    delete_dialog.setCanceledOnTouchOutside(false);
+                    delete_dialog.setCancelable(false);
+                    delete_dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            delete_dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
+                            delete_dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
+                        }
+                    });
+                    delete_dialog.show();
+
                 }
 
                 /* If user swipes to right , Edit. */
@@ -355,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AlertDialog.Builder alert = new AlertDialog.Builder(this, (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? R.style.Theme_AppCompat_DayNight_Dialog : R.style.Theme_AppCompat_Light_Dialog);
                 alert.setMessage("Are you sure you want to delete all notes and reminders?");
 
-                final AlertDialog dialog = alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                truncate_dialog = alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -382,14 +416,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }).create();
 
-                dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                truncate_dialog.setOnShowListener( new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface arg0) {
-                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
-                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
+                        truncate_dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#009688"));
+                        truncate_dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#009688"));
                     }
                 });
-                dialog.show();
+                truncate_dialog.show();
 
                 return true;
 
@@ -426,5 +460,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new DataAdapter(item_list);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        if(delete_dialog != null)
+            delete_dialog.cancel();
+
+        if(truncate_dialog != null)
+            truncate_dialog.cancel();
     }
 }

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 /**
@@ -21,7 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         /* notification builder */
         Notification.Builder mBuilder = new Notification.Builder(context)
-                .setSmallIcon(R.drawable.ic_themechangerdarkpen)
+                .setSmallIcon(R.drawable.notification_icon)
                 .setColor(Color.parseColor("#007d6d"))
                 .setShowWhen(true)
                 .setStyle(new Notification.BigTextStyle())

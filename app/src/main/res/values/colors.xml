@@ -9,7 +9,7 @@
     <color name="iconsColorLT">#303030</color>
     <color name="fabColorLT">#3abdf8</color>
     <color name="rippleColorLT">#66d0fc</color>
-    <color name="iconsRippleColorLT">#404040</color>
+    <color name="iconsRippleColorLT">#666</color>
     <color name="toggleColorLT">#303030</color>
     <color name="reminderTextColorLT">#00a1e9</color>
     <color name="menuBackgroundColorLT">#202020</color>
@@ -24,8 +24,8 @@
     <color name="noteTextColorDT">#fcfcfc</color>
     <color name="iconsColorDT">#eeee</color>
     <color name="fabColorDT">#0ea5e9</color>
-    <color name="rippleColorDT">#2a7092</color>
-    <color name="iconsRippleColorDT">#ccc</color>
+    <color name="rippleColorDT">#3185ae</color>
+    <color name="iconsRippleColorDT">#bbb</color>
     <color name="toggleColorDT">#fafafa</color>
     <color name="reminderTextColorDT">#15adf1</color>
     <color name="menuBackgroundColorDT">#202020</color>
