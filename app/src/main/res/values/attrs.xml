@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ds">
-    <attr name="colorPrimary" format="color"/>
-    <attr name="colorPrimaryDark" format="color"/>
-    <attr name="backgroundColor" format="color"/>
-    <attr name="cardViewBackground" format="color"/>
-    <attr name="noteColor" format="color"/>
-    <attr name="buttoncolor" format="color"/>
-    <attr name="tintcolor" format="color"/>
-    <attr name="actionBarColor" format="color" />
-    <attr name="optionsBackground" format="color" />
-    <attr name="saveCheck" format="color" />
-    <attr name="optionsTextColor" format="color" />
-    <attr name="noteBackground" format="color" />
-    <attr name="iconsColor" format="color" />
-    <attr name="backgroundShade" format="color" />
-    <attr name="dialogBackground" format="color" />
+        <attr name="colorPrimary" format="color"/>
+        <attr name="colorPrimaryDark" format="color"/>
+        <attr name="mainBackgroundColor" format="color|reference"/>
+        <attr name="noteBackgroundColor" format="color|reference"/>
+        <attr name="noteShadowColor" format="color" />
+        <attr name="noteColor" format="color"/>
+        <attr name="noteTextColor" format="color" />
+        <attr name="iconsColor" format="color" />
+        <attr name="fabColor" format="color" />
+        <attr name="rippleColor" format="color" />
+        <attr name="iconsRippleColor" format="color"/>
+        <attr name="dialogBackgroundColor" format="color" />
+        <attr name="reminderTextColor" format="color" />
+        <attr name="menuBackgroundColor" format="color"/>
+        <attr name="toggleColor" format="color" />
+        <attr name="hintColor" format="color"/>
+        <attr name="barColor" format="color"/>
     </declare-styleable>
 </resources>

@@ -1,70 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/padd_10"
-    android:layout_marginBottom="2dp"
-    android:layout_marginTop="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
     android:background="@drawable/bg"
-    android:elevation="4dp"
-    android:orientation="vertical"
-    android:padding="@dimen/padd_10">
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="10dp"
+    android:foreground="@drawable/custom_ripple"
+    android:elevation="1dp">
 
-
-        <TextView
-            android:id="@+id/tv_names"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/bg"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="?attr/tintcolor"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_names"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg"
-            android:textColor="?attr/tintcolor"
-            android:textIsSelectable="false"
-            android:textSize="12sp" />
-
-    <ImageView
-        android:id="@+id/set_reminder"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/time"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/set_reminder" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-            android:id="@+id/noti_time"
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/noteBackgroundColor"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_font"
+                android:maxLines="2"
+                android:textAlignment="textStart"
+                android:textColor="?attr/noteTextColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/creation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="?attr/noteBackgroundColor"
+                android:fontFamily="@font/roboto_font"
+                android:textAlignment="textStart"
+                android:textColor="?attr/noteTextColor"
+                android:textIsSelectable="false"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/time"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg"
-            android:textColor="?attr/tintcolor"
-            android:textIsSelectable="false"
-            android:textSize="12sp" />
+            android:layout_alignBottom="@id/linear_layout"
+            android:layout_alignEnd="@id/linear_layout"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/reminder_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/noti_time"
-        android:layout_marginStart="29dp"
-        android:layout_toEndOf="@+id/noti_time"
-        android:background="@drawable/bg"
-        android:textColor="?attr/tintcolor"
-        android:textIsSelectable="false"
-        android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/alarm_on"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/reminder_is_set"
+                android:visibility="gone"
+                app:srcCompat="@drawable/alarm_on" />
+        </LinearLayout>
 
-</RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

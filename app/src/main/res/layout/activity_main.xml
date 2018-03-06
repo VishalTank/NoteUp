@@ -2,40 +2,61 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="4dp"
-        >
+        android:clipToPadding="false">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar1"
+            android:id="@+id/toolbar_MainActivity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="72dp"
-            android:background="?attr/backgroundColor"
+            android:minHeight="?attr/actionBarSize"
             android:layout_gravity="top"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/MyActionBarTheme" />
+            android:elevation="8dp"
+            android:background="?attr/mainBackgroundColor"
+            android:theme="@style/MyActionBarTheme"
+            app:contentInsetStart="72dp"
+            app:popupTheme="@style/MyPopUpTheme" >
+
+            <TextView
+                android:id="@+id/toolbar_MainActivity_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/capriola_font"
+                android:text="@string/noteup"
+                android:textAlignment="center"
+                android:textColor="?attr/iconsColor"
+                android:textSize="20sp" />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/card_recycler_view"
-        android:scrollbars="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/backgroundColor" />
+        android:background="?attr/mainBackgroundColor">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/card_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:scrollbars="vertical"/>
+
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -48,9 +69,12 @@
         android:layout_marginEnd="27dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/add_file"
-        app:backgroundTint="@color/sky"
-        app:rippleColor="@color/skylight"
-        android:elevation="6dp"/>
+        android:elevation="24dp"
+        android:clickable="true"
+        android:src="@drawable/add_note"
+        app:backgroundTint="?attr/fabColor"
+        app:rippleColor="?attr/iconsRippleColor"
+        android:focusable="true" />
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <!-- Settings, should always be in the overflow -->
+
+    <item
+        android:id="@+id/clear_db"
+        android:title="@string/clear_all"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/about_developers"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/help"
+        android:title="@string/how_to_use"
+        app:showAsAction="never"/>
+
+</menu>

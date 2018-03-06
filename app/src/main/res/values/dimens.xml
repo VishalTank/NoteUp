@@ -7,4 +7,5 @@
     <dimen name="ic_delete">30dp</dimen>
     <dimen name="icon_star">25dp</dimen>
     <dimen name="thumbnail">90dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

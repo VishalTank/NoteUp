@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#e2e2e2</color>
-    <color name="colorAccent">#e2e2e2</color>
-    <color name="bg_row_background">#fa315b</color>
-    <color name="item_name">#535353</color>
-    <color name="description">#a9a9a9</color>
-    <color name="noteColor">#546673</color>
-    <color name="sky">#33B5FF</color>
-    <color name="skylight">#DEF2FF</color>
-</resources>
 
+    <color name="colorPrimaryLT">#3abdf8</color>
+    <color name="colorPrimaryDarkLT">#008dc5</color>
+    <color name="mainBackgroundColorLT">#dadada</color>
+    <color name="noteBackgroundColorLT">#fff</color>
+    <color name="noteTextColorLT">#202020</color>
+    <color name="iconsColorLT">#303030</color>
+    <color name="fabColorLT">#3abdf8</color>
+    <color name="rippleColorLT">#66d0fc</color>
+    <color name="iconsRippleColorLT">#404040</color>
+    <color name="toggleColorLT">#303030</color>
+    <color name="reminderTextColorLT">#00a1e9</color>
+    <color name="menuBackgroundColorLT">#202020</color>
+    <color name="hintColorLT">#909090</color>
+    <color name="barColorLT">#ddd</color>
+
+
+    <color name="colorPrimaryDT">#0ea5e9</color>
+    <color name="colorPrimaryDarkDT">#0083be</color>
+    <color name="mainBackgroundColorDT">#222</color>
+    <color name="noteBackgroundColorDT">#444</color>
+    <color name="noteTextColorDT">#fcfcfc</color>
+    <color name="iconsColorDT">#eeee</color>
+    <color name="fabColorDT">#0ea5e9</color>
+    <color name="rippleColorDT">#2a7092</color>
+    <color name="iconsRippleColorDT">#ccc</color>
+    <color name="toggleColorDT">#fafafa</color>
+    <color name="reminderTextColorDT">#15adf1</color>
+    <color name="menuBackgroundColorDT">#202020</color>
+    <color name="hintColorDT">#d0d0d0</color>
+    <color name="barColorDT">#212121</color>
+
+
+    <color name="switchColor">#ff4684</color>
+
+</resources>
