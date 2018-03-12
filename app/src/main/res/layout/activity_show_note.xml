@@ -7,10 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/mainBackgroundColor"
-    tools:context="com.tank.vishal.noteup.ShowNote">
+    tools:context=".ShowNote">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/view_ShowNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +25,19 @@
             android:background="?attr/noteBackgroundColor"
             android:theme="@style/MyActionBarTheme"
             app:contentInsetStart="72dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/toolbar_ShowNote_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola_font"
+                android:text="@string/view_note"
+                android:textAlignment="center"
+                android:textColor="?attr/iconsColor"
+                android:textSize="20sp" />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -45,7 +56,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/bg"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:elevation="2dp">
@@ -55,10 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:layout_marginStart="20dp"
+                android:fontFamily="@font/roboto_font"
                 android:gravity="center"
+                android:text="QWERTY"
                 android:textAlignment="center"
-                android:textColor="?attr/reminderTextColor"
+                android:textColor="?attr/toggleColor"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -81,24 +93,26 @@
                 android:id="@+id/title_ShowNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:focusable="true"
+                android:fontFamily="@font/roboto_font"
                 android:gravity="start"
                 android:singleLine="true"
+                android:text="QWERTY"
                 android:textAlignment="textStart"
                 android:textColor="?attr/noteTextColor"
                 android:textIsSelectable="true"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:visibility="gone" />
 
             <ScrollView
                 android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_below="@id/title_ShowNote">
@@ -106,15 +120,19 @@
                 <TextView
                     android:id="@+id/note_ShowNote"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     android:backgroundTint="?attr/noteBackgroundColor"
                     android:focusable="true"
+                    android:fontFamily="@font/roboto_font"
                     android:scrollbars="vertical"
+                    android:text="QWERTY"
                     android:textAlignment="textStart"
                     android:textColor="?attr/noteTextColor"
                     android:textIsSelectable="true"
-                    android:textSize="19sp" />
+                    android:textSize="18sp" />
 
             </ScrollView>
 
@@ -126,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:background="@drawable/bg"
@@ -135,8 +153,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Reminder Time : "
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/roboto_font"
+                android:text="@string/Reminder_Time"
                 android:textAlignment="textStart"
                 android:textColor="?attr/reminderTextColor"
                 android:textSize="16sp" />
@@ -145,10 +167,12 @@
                 android:id="@+id/reminder_ShowNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/reminder_time_string"
-                android:layout_alignBottom="@+id/reminder_time_string"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/roboto_font"
                 android:textAlignment="textEnd"
                 android:textColor="?attr/reminderTextColor"
                 android:textSize="16sp" />

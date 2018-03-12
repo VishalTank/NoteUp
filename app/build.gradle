@@ -2,14 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-
     defaultConfig {
-        applicationId "com.tank.vishal.noteup"
-        minSdkVersion 23
+        applicationId "com.vishaltank.noteup"
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,7 +29,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.1.0'
     testImplementation 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
+    compile 'com.google.firebase:firebase-appindexing:11.8.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

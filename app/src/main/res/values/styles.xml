@@ -1,23 +1,22 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#00b49c</item>
-        <item name="colorPrimaryDark">#007d6d</item>
-        <item name="mainBackgroundColor">#ddd</item>
-        <item name="noteBackgroundColor">#fff</item>
-        <item name="noteColor">#546673</item>
-        <item name="noteTextColor">#000</item>
-        <item name="colorAccent">#e2e2e2</item>
-        <item name="iconsColor">#F2000000</item>
-        <item name="fabColor">#009e8a</item>
-        <item name="rippleColor">#5ea9a1</item>
-        <item name="iconsRippleColor">#333</item>
-        <item name="iconsRippleColorInverse">#ccc</item>
-        <item name="toggleColor">#303030</item>
-        <item name="reminderTextColor">#007d6d</item>
-        <item name="menuBackgroundColor">#202020</item>
-        <item name="hintColor">#909090</item>
+
+        <item name="colorPrimary">@color/colorPrimaryLT</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLT</item>
+        <item name="mainBackgroundColor">@color/mainBackgroundColorLT</item>
+        <item name="noteBackgroundColor">@color/noteBackgroundColorLT</item>
+        <item name="noteTextColor">@color/noteTextColorLT</item>
+        <item name="iconsColor">@color/iconsColorLT</item>
+        <item name="fabColor">@color/fabColorLT</item>
+        <item name="rippleColor">@color/rippleColorLT</item>
+        <item name="iconsRippleColor">@color/iconsRippleColorLT</item>
+        <item name="toggleColor">@color/toggleColorLT</item>
+        <item name="reminderTextColor">@color/reminderTextColorLT</item>
+        <item name="menuBackgroundColor">@color/menuBackgroundColorLT</item>
+        <item name="hintColor">@color/hintColorLT</item>
+        <item name="barColor">@color/barColorLT</item>
+        <item name="windowActionModeOverlay">true</item>
 
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
         <item name="android:colorControlHighlight">?attr/iconsRippleColor</item>
@@ -26,11 +25,8 @@
         <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogThemeLight</item>
 
         <item name="toolbarStyle">@style/MyToolBarStyle</item>
-        <item name="actionModeStyle">@style/MyActionModeStyle</item>
         <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
-        <item name="android:actionMenuTextColor">?attr/noteTextColor</item>
 
-        <item name="windowActionModeOverlay">true</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
     </style>
@@ -40,22 +36,21 @@
     <!-- Dark theme. -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimary">#009688</item>
-        <item name="colorPrimaryDark">#00695C</item>
-        <item name="mainBackgroundColor">#212121</item>
-        <item name="noteBackgroundColor">#404040</item>
-        <item name="noteColor">#546673</item>
-        <item name="noteTextColor">#fff</item>
-        <item name="colorAccent">#e2e2e2</item>
-        <item name="iconsColor">#fafafa</item>
-        <item name="fabColor">#00796B</item>
-        <item name="rippleColor">#b7fef7</item>
-        <item name="iconsRippleColor">#ccc</item>
-        <item name="iconsRippleColorInverse">#333</item>
-        <item name="toggleColor">#fafafa</item>
-        <item name="reminderTextColor">#00BFA5</item>
-        <item name="menuBackgroundColor">#202020</item>
-        <item name="hintColor">#d0d0d0</item>
+        <item name="colorPrimary">@color/colorPrimaryDT</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDT</item>
+        <item name="mainBackgroundColor">@color/mainBackgroundColorDT</item>
+        <item name="noteBackgroundColor">@color/noteBackgroundColorDT</item>
+        <item name="noteTextColor">@color/noteTextColorDT</item>
+        <item name="iconsColor">@color/iconsColorDT</item>
+        <item name="fabColor">@color/fabColorDT</item>
+        <item name="rippleColor">@color/rippleColorDT</item>
+        <item name="iconsRippleColor">@color/iconsRippleColorDT</item>
+        <item name="toggleColor">@color/toggleColorDT</item>
+        <item name="reminderTextColor">@color/reminderTextColorDT</item>
+        <item name="menuBackgroundColor">@color/menuBackgroundColorDT</item>
+        <item name="hintColor">@color/hintColorDT</item>
+        <item name="barColor">@color/barColorDT</item>
+        <item name="windowActionModeOverlay">true</item>
 
         <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
         <item name="android:colorControlHighlight">?attr/iconsRippleColor</item>
@@ -64,11 +59,8 @@
         <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogThemeDark</item>
 
         <item name="toolbarStyle">@style/MyToolBarStyle</item>
-        <item name="actionModeStyle">@style/MyActionModeStyle</item>
         <item name="android:actionBarTheme">@style/MyActionBarTheme</item>
-        <item name="android:actionMenuTextColor">?attr/noteTextColor</item>
 
-        <item name="windowActionModeOverlay">true</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
 
     </style>
@@ -78,7 +70,7 @@
         <item name="android:textColor">?attr/mainBackgroundColor</item>
         <item name="android:colorBackground">?attr/toggleColor</item>
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
-        <item name="colorControlHighlight">?attr/iconsRippleColorInverse</item>
+        <item name="colorControlHighlight">?attr/mainBackgroundColor</item>
     </style>
 
 
@@ -112,27 +104,11 @@
     </style>
 
 
-    <style name="MyActionModeStyle" parent="Widget.AppCompat.ActionMode">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
-    </style>
-
-
-
-
-
-
-
-
-
-
     <!-- Switch's color change according to this style. -->
     <style name="SwitchCompatStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimaryDisableOnly">?attr/reminderTextColor</item>
-        <item name="colorAccent">?attr/reminderTextColor</item>
+        <item name="colorAccent">@color/switchColor</item>
     </style>
-
-
 
 
     <!-- Fading animation while changing activities -->
@@ -140,6 +116,8 @@
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+
+
 
 
 

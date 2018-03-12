@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-</resources>
 
+    <color name="colorPrimaryLT">#3abdf8</color>
+    <color name="colorPrimaryDarkLT">#008dc5</color>
+    <color name="mainBackgroundColorLT">#dadada</color>
+    <color name="noteBackgroundColorLT">#fff</color>
+    <color name="noteTextColorLT">#202020</color>
+    <color name="iconsColorLT">#303030</color>
+    <color name="fabColorLT">#3abdf8</color>
+    <color name="rippleColorLT">#5cbee7</color>
+    <color name="iconsRippleColorLT">#666</color>
+    <color name="toggleColorLT">#303030</color>
+    <color name="reminderTextColorLT">#00a1e9</color>
+    <color name="menuBackgroundColorLT">#202020</color>
+    <color name="hintColorLT">#909090</color>
+    <color name="barColorLT">#ddd</color>
+
+
+    <color name="colorPrimaryDT">#0ea5e9</color>
+    <color name="colorPrimaryDarkDT">#0083be</color>
+    <color name="mainBackgroundColorDT">#222</color>
+    <color name="noteBackgroundColorDT">#444</color>
+    <color name="noteTextColorDT">#fcfcfc</color>
+    <color name="iconsColorDT">#eeee</color>
+    <color name="fabColorDT">#0ea5e9</color>
+    <color name="rippleColorDT">#3190be</color>
+    <color name="iconsRippleColorDT">#bbb</color>
+    <color name="toggleColorDT">#fafafa</color>
+    <color name="reminderTextColorDT">#15adf1</color>
+    <color name="menuBackgroundColorDT">#202020</color>
+    <color name="hintColorDT">#d0d0d0</color>
+    <color name="barColorDT">#212121</color>
+
+
+    <color name="switchColor">#ff4684</color>
+
+</resources>

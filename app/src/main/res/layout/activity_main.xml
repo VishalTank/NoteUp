@@ -22,15 +22,28 @@
             android:background="?attr/mainBackgroundColor"
             android:theme="@style/MyActionBarTheme"
             app:contentInsetStart="72dp"
-            app:popupTheme="@style/MyPopUpTheme" />
+            app:popupTheme="@style/MyPopUpTheme" >
+
+            <TextView
+                android:id="@+id/toolbar_MainActivity_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/capriola_font"
+                android:text="@string/noteup"
+                android:textAlignment="center"
+                android:textColor="?attr/iconsColor"
+                android:textSize="20sp" />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:background="?attr/mainBackgroundColor">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="?attr/mainBackgroundColor">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/card_recycler_view"
@@ -58,9 +71,10 @@
         android:layout_marginRight="16dp"
         android:elevation="24dp"
         android:clickable="true"
-        android:src="@drawable/add_file"
+        android:src="@drawable/add_note"
         app:backgroundTint="?attr/fabColor"
-        app:rippleColor="?attr/iconsRippleColor" />
+        app:rippleColor="?attr/iconsRippleColor"
+        android:focusable="true" />
 
 
 </android.support.design.widget.CoordinatorLayout>

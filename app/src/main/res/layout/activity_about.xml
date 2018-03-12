@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_layout"
+    android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tank.vishal.noteup.AboutActivity">
+    android:background="@drawable/animation_list"
+    tools:context=".AboutActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/view_about"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_About"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/main_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top"
+        android:background="@drawable/toolbar_bg"
+        app:contentInsetStart="72dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_about"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="top"
-            android:background="?attr/noteBackgroundColor"
-            android:theme="@style/MyActionBarTheme"
-            app:contentInsetStart="72dp"
-            app:elevation="8dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <TextView
+            android:id="@+id/toolbar_About_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/capriola_font"
+            android:text="@string/about_developers"
+            android:textAlignment="center"
+            android:textColor="?attr/iconsColor"
+            android:textSize="20sp" />
 
-    </android.support.design.widget.AppBarLayout>
-
+    </android.support.v7.widget.Toolbar>
 
 
     <RelativeLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/animation_list"
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,8 +46,8 @@
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_margin="8dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,13 +64,13 @@
                     android:id="@+id/feedbackBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="2dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_gravity="center_horizontal"
-                    android:elevation="16dp"
+                    android:layout_marginTop="8dp"
                     android:background="?attr/mainBackgroundColor"
+                    android:elevation="16dp"
                     android:foreground="@drawable/custom_icons_ripple">
 
                     <RelativeLayout
@@ -87,17 +84,19 @@
                             android:id="@+id/feedbackImage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/feedback" />
+                            android:src="@drawable/feedback"
+                            android:contentDescription="@string/feedback" />
 
                         <TextView
                             android:id="@+id/feedBackText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginStart="30dp"
                             android:gravity="center"
                             android:text="@string/feedback"
+                            android:fontFamily="@font/roboto_font"
                             android:textAlignment="center"
-                            android:textColor="?attr/colorPrimary"
+                            android:textColor="?attr/fabColor"
                             android:textSize="17sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -108,13 +107,13 @@
                     android:id="@+id/ratingBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_gravity="bottom"
-                    android:elevation="16dp"
-                    android:background="?attr/mainBackgroundColor">
+                    android:layout_marginTop="2dp"
+                    android:background="?attr/noteBackgroundColor"
+                    android:elevation="16dp">
 
 
                     <TextView
@@ -122,9 +121,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="16dp"
-                        android:text="Rate and share NoteUp!"
+                        android:text="@string/rate_share"
                         android:textAlignment="center"
-                        android:textColor="?attr/colorPrimary"
+                        android:fontFamily="@font/roboto_font"
+                        android:textColor="?attr/fabColor"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -134,9 +134,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:elevation="24dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginTop="60dp">
+                        android:layout_marginTop="60dp"
+                        android:elevation="24dp">
 
 
                         <LinearLayout
@@ -144,7 +144,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="?attr/mainBackgroundColor"
+                            android:background="?attr/barColor"
                             android:gravity="center_horizontal"
                             android:orientation="horizontal"
                             android:weightSum="2">
@@ -154,20 +154,22 @@
                                 android:id="@+id/rate_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/rate" />
+                                app:srcCompat="@drawable/rate"
+                                android:contentDescription="@string/rate" />
 
 
                             <ImageButton
                                 android:id="@+id/share_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/share" />
+                                app:srcCompat="@drawable/share"
+                                android:contentDescription="@string/share" />
 
                         </LinearLayout>
 
@@ -185,11 +187,11 @@
 
 
                     <LinearLayout
-                        android:id="@+id/ll1"
+                        android:id="@+id/ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="4dp">
+                        android:layout_margin="4dp"
+                        android:orientation="vertical">
 
 
                         <android.support.v7.widget.CardView
@@ -197,13 +199,13 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
                             android:elevation="24dp"
                             android:innerRadius="1dp"
                             android:shape="oval"
                             android:thicknessRatio="1.9"
                             app:cardCornerRadius="40dp"
-                            app:cardElevation="24dp"
-                            android:layout_marginTop="10dp">
+                            app:cardElevation="24dp">
 
 
                             <ImageView
@@ -211,10 +213,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/wiz"/>
+                                android:src="@drawable/vishal"
+                                android:contentDescription="@string/vishal" />
 
                         </android.support.v7.widget.CardView>
-
 
 
                         <TextView
@@ -224,10 +226,10 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/vishal_tank"
                             android:textAlignment="center"
+                            android:fontFamily="@font/roboto_font"
                             android:textColor="?attr/toggleColor"
-                            android:textSize="21sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
-
 
 
                         <TextView
@@ -236,13 +238,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
-                            android:text="Creator of NoteUp!"
+                            android:text="@string/creator_of_noteup"
+                            android:fontFamily="@font/roboto_font"
                             android:textAlignment="center"
                             android:textColor="?attr/toggleColor"
-                            android:textSize="17sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
-
 
 
                     <android.support.v7.widget.CardView
@@ -250,9 +252,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:elevation="24dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginTop="180dp">
+                        android:layout_marginTop="180dp"
+                        android:elevation="24dp">
 
 
                         <LinearLayout
@@ -260,7 +262,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="?attr/mainBackgroundColor"
+                            android:background="?attr/barColor"
                             android:gravity="center_horizontal"
                             android:orientation="horizontal"
                             android:weightSum="4">
@@ -269,46 +271,49 @@
                                 android:id="@+id/google_plus_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="20dp"
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
-                                app:srcCompat="@drawable/google_plus" />
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/google_plus"
+                                android:contentDescription="@string/google_plus" />
 
                             <ImageButton
                                 android:id="@+id/fb_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="20dp"
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
-                                app:srcCompat="@drawable/facebook" />
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/facebook"
+                                android:contentDescription="@string/facebook" />
 
 
                             <ImageButton
                                 android:id="@+id/git_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/custom_icons_ripple"
                                 android:layout_weight="1"
+                                android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/github" />
+                                app:srcCompat="@drawable/github"
+                                android:contentDescription="@string/github" />
 
 
                             <ImageButton
                                 android:id="@+id/twitter_button"
                                 android:layout_width="wrap_content"
-                                android:background="@drawable/custom_icons_ripple"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/twitter" />
+                                app:srcCompat="@drawable/twitter"
+                                android:contentDescription="@string/twitter" />
 
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 
                 </android.support.v7.widget.CardView>
-
 
 
                 <android.support.v7.widget.CardView
@@ -323,11 +328,11 @@
 
 
                     <LinearLayout
-                        android:id="@+id/ll11"
+                        android:id="@+id/ll1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="4dp">
+                        android:layout_margin="4dp"
+                        android:orientation="vertical">
 
 
                         <android.support.v7.widget.CardView
@@ -335,13 +340,13 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
                             android:elevation="24dp"
                             android:innerRadius="1dp"
                             android:shape="oval"
                             android:thicknessRatio="1.9"
                             app:cardCornerRadius="40dp"
-                            app:cardElevation="24dp"
-                            android:layout_marginTop="10dp">
+                            app:cardElevation="24dp">
 
 
                             <ImageView
@@ -349,7 +354,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/gadhvi" />
+                                android:src="@drawable/shreedan"
+                                android:contentDescription="@string/shreedan" />
 
                         </android.support.v7.widget.CardView>
 
@@ -360,9 +366,10 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
                             android:text="@string/shreedan_rudachh"
+                            android:fontFamily="@font/roboto_font"
                             android:textAlignment="center"
                             android:textColor="?attr/toggleColor"
-                            android:textSize="21sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
 
@@ -372,10 +379,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
-                            android:text="Creator of www.flutrr.in"
+                            android:fontFamily="@font/roboto_font"
+                            android:text="@string/creator_of_www_flutrr_in"
                             android:textAlignment="center"
                             android:textColor="?attr/toggleColor"
-                            android:textSize="17sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -385,9 +393,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:elevation="24dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginTop="180dp">
+                        android:layout_marginTop="180dp"
+                        android:elevation="24dp">
 
 
                         <LinearLayout
@@ -395,49 +403,52 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="?attr/mainBackgroundColor"
+                            android:background="?attr/barColor"
                             android:gravity="center_horizontal"
                             android:orientation="horizontal"
                             android:weightSum="4">
 
+                            <ImageButton
+                                android:id="@+id/website"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/custom_icons_ripple"
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/website"
+                                android:contentDescription="@string/website" />
 
                             <ImageButton
                                 android:id="@+id/fb_button1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/facebook" />
+                                app:srcCompat="@drawable/facebook"
+                                android:contentDescription="@string/facebook" />
 
 
                             <ImageButton
                                 android:id="@+id/git_button1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/github" />
+                                app:srcCompat="@drawable/github"
+                                android:contentDescription="@string/github" />
 
 
                             <ImageButton
                                 android:id="@+id/twitter1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/twitter" />
-
-                            <ImageButton
-                                android:id="@+id/website"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/custom_icons_ripple"
-                                android:padding="20dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/website" />
+                                app:srcCompat="@drawable/twitter"
+                                android:contentDescription="@string/twitter" />
 
 
                         </LinearLayout>
@@ -453,4 +464,4 @@
 
     </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
