@@ -16,7 +16,19 @@
         android:layout_gravity="top"
         android:background="@drawable/toolbar_bg"
         app:contentInsetStart="72dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/toolbar_About_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/capriola_font"
+            android:text="@string/about_developers"
+            android:textAlignment="center"
+            android:textColor="?attr/iconsColor"
+            android:textSize="20sp" />
+
+    </android.support.v7.widget.Toolbar>
 
 
     <RelativeLayout
@@ -72,13 +84,14 @@
                             android:id="@+id/feedbackImage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/feedback" />
+                            android:src="@drawable/feedback"
+                            android:contentDescription="@string/feedback" />
 
                         <TextView
                             android:id="@+id/feedBackText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginStart="30dp"
                             android:gravity="center"
                             android:text="@string/feedback"
                             android:fontFamily="@font/roboto_font"
@@ -108,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="16dp"
-                        android:text="Rate and share NoteUp!"
+                        android:text="@string/rate_share"
                         android:textAlignment="center"
                         android:fontFamily="@font/roboto_font"
                         android:textColor="?attr/fabColor"
@@ -144,7 +157,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/rate" />
+                                app:srcCompat="@drawable/rate"
+                                android:contentDescription="@string/rate" />
 
 
                             <ImageButton
@@ -154,7 +168,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/share" />
+                                app:srcCompat="@drawable/share"
+                                android:contentDescription="@string/share" />
 
                         </LinearLayout>
 
@@ -198,7 +213,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/wiz" />
+                                android:src="@drawable/vishal"
+                                android:contentDescription="@string/vishal" />
 
                         </android.support.v7.widget.CardView>
 
@@ -222,7 +238,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
-                            android:text="Creator of NoteUp!"
+                            android:text="@string/creator_of_noteup"
                             android:fontFamily="@font/roboto_font"
                             android:textAlignment="center"
                             android:textColor="?attr/toggleColor"
@@ -251,14 +267,6 @@
                             android:orientation="horizontal"
                             android:weightSum="4">
 
-                            <ImageButton
-                                android:id="@+id/google_plus_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/custom_icons_ripple"
-                                android:padding="20dp"
-                                app:srcCompat="@drawable/google_plus" />
 
                             <ImageButton
                                 android:id="@+id/fb_button"
@@ -267,7 +275,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/facebook" />
+                                app:srcCompat="@drawable/facebook"
+                                android:contentDescription="@string/facebook" />
 
 
                             <ImageButton
@@ -277,7 +286,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/github" />
+                                app:srcCompat="@drawable/github"
+                                android:contentDescription="@string/github" />
 
 
                             <ImageButton
@@ -287,7 +297,18 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/twitter" />
+                                app:srcCompat="@drawable/twitter"
+                                android:contentDescription="@string/twitter" />
+
+                            <ImageButton
+                                android:id="@+id/google_plus_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/custom_icons_ripple"
+                                android:padding="20dp"
+                                app:srcCompat="@drawable/google_plus"
+                                android:contentDescription="@string/google_plus" />
 
                         </LinearLayout>
 
@@ -334,7 +355,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:layout_centerHorizontal="true"
-                                android:src="@drawable/gadhvi" />
+                                android:src="@drawable/shreedan"
+                                android:contentDescription="@string/shreedan" />
 
                         </android.support.v7.widget.CardView>
 
@@ -359,7 +381,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/roboto_font"
-                            android:text="Creator of www.flutrr.in"
+                            android:text="@string/creator_of_www_flutrr_in"
                             android:textAlignment="center"
                             android:textColor="?attr/toggleColor"
                             android:textSize="16sp" />
@@ -394,7 +416,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/website" />
+                                app:srcCompat="@drawable/website"
+                                android:contentDescription="@string/website" />
 
                             <ImageButton
                                 android:id="@+id/fb_button1"
@@ -403,7 +426,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/facebook" />
+                                app:srcCompat="@drawable/facebook"
+                                android:contentDescription="@string/facebook" />
 
 
                             <ImageButton
@@ -413,7 +437,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/github" />
+                                app:srcCompat="@drawable/github"
+                                android:contentDescription="@string/github" />
 
 
                             <ImageButton
@@ -423,7 +448,8 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/custom_icons_ripple"
                                 android:padding="20dp"
-                                app:srcCompat="@drawable/twitter" />
+                                app:srcCompat="@drawable/twitter"
+                                android:contentDescription="@string/twitter" />
 
 
                         </LinearLayout>

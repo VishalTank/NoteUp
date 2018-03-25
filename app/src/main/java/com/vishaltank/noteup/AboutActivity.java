@@ -55,7 +55,7 @@ public class AboutActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_About);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("About Developers");
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
@@ -68,7 +68,7 @@ public class AboutActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.setData(Uri.parse(getString(R.string.mail_to))); // only email apps should be able to handle this action.
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { getString(R.string.dev_mail) });
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
                 intent.putExtra(Intent.EXTRA_TEXT   , getString(R.string.feedback_message));
@@ -87,7 +87,7 @@ public class AboutActivity extends AppCompatActivity {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://www.facebook.com/vishal.tank.739";
+                String url = getString(R.string.vishal_facebook);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -98,7 +98,7 @@ public class AboutActivity extends AppCompatActivity {
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/VishalTank";
+                String url = getString(R.string.vishal_github);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -109,7 +109,7 @@ public class AboutActivity extends AppCompatActivity {
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://twitter.com/WizWarrior_";
+                String url = getString(R.string.vishal_twitter);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -120,7 +120,7 @@ public class AboutActivity extends AppCompatActivity {
         google_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://plus.google.com/u/0/115177000184685126578";
+                String url = getString(R.string.vishal_googleplus);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -138,7 +138,7 @@ public class AboutActivity extends AppCompatActivity {
         facebook1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://www.facebook.com/vishal.tank.739";
+                String url = getString(R.string.shreedan_facebook);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -149,7 +149,7 @@ public class AboutActivity extends AppCompatActivity {
         github1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/VishalTank";
+                String url = getString(R.string.shreedan_github);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -160,7 +160,7 @@ public class AboutActivity extends AppCompatActivity {
         twitter1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://twitter.com/WizWarrior_";
+                String url = getString(R.string.shreedan_twitter);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
@@ -171,7 +171,7 @@ public class AboutActivity extends AppCompatActivity {
         website.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://flutrr.in/";
+                String url = getString(R.string.shreedan_website);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

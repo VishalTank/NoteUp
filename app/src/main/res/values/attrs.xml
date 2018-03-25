@@ -12,7 +12,6 @@
         <attr name="fabColor" format="color" />
         <attr name="rippleColor" format="color" />
         <attr name="iconsRippleColor" format="color"/>
-        <attr name="iconsRippleColorInverse" format="color"/>
         <attr name="dialogBackgroundColor" format="color" />
         <attr name="reminderTextColor" format="color" />
         <attr name="menuBackgroundColor" format="color"/>

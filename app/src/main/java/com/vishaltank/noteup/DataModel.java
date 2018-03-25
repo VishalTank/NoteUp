@@ -1,5 +1,7 @@
 package com.vishaltank.noteup;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -28,7 +30,8 @@ class DataModel {
 
 
     //created or updated date & time
-    String getDate() { return new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(date); }
+    @SuppressLint("SimpleDateFormat")
+    //String getDate() { return new SimpleDateFormat("dd/MM/yyyy 'at' hh:mm").format(date); }
 
     void setDate(Long date) { this.date = new java.sql.Date(date); }
 

@@ -1,5 +1,6 @@
 package com.vishaltank.noteup;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +17,11 @@ import java.util.Date;
 
 public class ShowNote extends AppCompatActivity {
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /* Theme setter. */
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             setTheme(R.style.DarkTheme);
         else
@@ -29,11 +32,12 @@ public class ShowNote extends AppCompatActivity {
         setContentView(R.layout.activity_show_note);
 
 
+        /* toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar_ShowNote);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("View Note");
+        getSupportActionBar().setTitle("");
+        toolbar.setElevation(4);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#323232")) : new ColorDrawable(Color.parseColor("#fefefe")));
 

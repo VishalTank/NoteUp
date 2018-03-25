@@ -11,7 +11,6 @@
         <item name="fabColor">@color/fabColorLT</item>
         <item name="rippleColor">@color/rippleColorLT</item>
         <item name="iconsRippleColor">@color/iconsRippleColorLT</item>
-        <item name="iconsRippleColorInverse">@color/iconsRippleColorInverseLT</item>
         <item name="toggleColor">@color/toggleColorLT</item>
         <item name="reminderTextColor">@color/reminderTextColorLT</item>
         <item name="menuBackgroundColor">@color/menuBackgroundColorLT</item>
@@ -46,7 +45,6 @@
         <item name="fabColor">@color/fabColorDT</item>
         <item name="rippleColor">@color/rippleColorDT</item>
         <item name="iconsRippleColor">@color/iconsRippleColorDT</item>
-        <item name="iconsRippleColorInverse">@color/iconsRippleColorInverseDT</item>
         <item name="toggleColor">@color/toggleColorDT</item>
         <item name="reminderTextColor">@color/reminderTextColorDT</item>
         <item name="menuBackgroundColor">@color/menuBackgroundColorDT</item>
@@ -72,7 +70,7 @@
         <item name="android:textColor">?attr/mainBackgroundColor</item>
         <item name="android:colorBackground">?attr/toggleColor</item>
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
-        <item name="colorControlHighlight">?attr/iconsRippleColorInverse</item>
+        <item name="colorControlHighlight">?attr/mainBackgroundColor</item>
     </style>
 
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DATABASE = "database3.db";
+    private static String DATABASE = "database_one.db";
     private static String TABLE = "NoteTable";
     private static String TITLE = "title";
     private static String NAME = "name";
@@ -30,6 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        /* Create a new table in database. */
         db.execSQL("CREATE TABLE "
                 + TABLE + "( "
                 + TITLE + " TEXT, "
@@ -44,6 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE + " ;");
     }
 
+
+    /* Insert note into database. */
     void insertNote(String title, String name, Long noti_time,int reminder_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -57,6 +61,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE, null, contentValues);
     }
 
+
+    /* Delete note from database. */
     void deleteNote(DataModel dataModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         String date = Long.toString(dataModel.getTime());
@@ -64,6 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE, "time = ?", new String[]{date});
     }
 
+
+    /* Update note which is already in database. */
     void updateNote(String title, String name, long time, long noti_time,long reminder_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -77,6 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE, contentValues, "time = ?", new String[]{d});
     }
 
+
+    /* Clear everything in database. */
     void truncate() {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -84,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /* Get all info about a row from database. */
     List<DataModel> getData() {
 
         Cursor cursor;
@@ -93,30 +104,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         DataModel dataModel;
 
         cursor = db.rawQuery("select * from " + TABLE + " ORDER BY " + TIME + " DESC;", null);
+        try {
+            while (cursor.moveToNext()) {
+                dataModel = new DataModel();
 
-        while (cursor.moveToNext()) {
-            dataModel = new DataModel();
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME));
+                Long time = cursor.getLong(cursor.getColumnIndexOrThrow(TIME));
+                Long reminder_time = cursor.getLong(cursor.getColumnIndexOrThrow(REMINDER_TIME));
+                Integer reminder_id = cursor.getInt(cursor.getColumnIndexOrThrow(REMINDER_ID));
 
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME));
-            Long time = cursor.getLong(cursor.getColumnIndexOrThrow(TIME));
-            Long reminder_time = cursor.getLong(cursor.getColumnIndexOrThrow(REMINDER_TIME));
-            Integer reminder_id = cursor.getInt(cursor.getColumnIndexOrThrow(REMINDER_ID));
+                dataModel.setTitle(title);
+                dataModel.setName(name);
+                dataModel.setDate(time);
+                dataModel.setReminderTime(reminder_time);
+                dataModel.setReminderID(reminder_id);
 
-            dataModel.setTitle(title);
-            dataModel.setName(name);
-            dataModel.setDate(time);
-            dataModel.setReminderTime(reminder_time);
-            dataModel.setReminderID(reminder_id);
+                stringBuffer.append(dataModel);
 
-            stringBuffer.append(dataModel);
-
-            data.add(dataModel);
+                data.add(dataModel);
+            }
         }
-
+        finally {
+            cursor.close();
+        }
         return data;
     }
 
+
+    /* Get ALL reminder ids(IF SET) of every note from database. */
     List<Integer> getAllReminderIDs() {
 
         ArrayList<Integer> arrayList = new ArrayList<>();
@@ -124,12 +140,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery("select * from " + TABLE, null);
 
         c.moveToFirst();
-
-        while(!c.isAfterLast()){
-            arrayList.add(c.getInt(c.getColumnIndex(REMINDER_ID)));
-            c.moveToNext();
+        try {
+            while (!c.isAfterLast()) {
+                arrayList.add(c.getInt(c.getColumnIndex(REMINDER_ID)));
+                c.moveToNext();
+            }
         }
-
+        finally {
+            c.close();
+        }
         return arrayList;
     }
 }

@@ -32,19 +32,17 @@ import java.util.Objects;
 
 class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
-    private String note_string;
-
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        TextView note,time,noti_time,title;
-        ImageView alarm_on,pin;
+        TextView note,time;
+        ImageView alarm_on;
 
         ViewHolder(View view) {
             super(view);
             note = view.findViewById(R.id.note);
             time = view.findViewById(R.id.creation_time);
             alarm_on = view.findViewById(R.id.alarm_on);
-            //pin = (ImageView) view.findViewById(R.id.alarm_on);
+            //title = view.findViewById(R.id.note_title);
 
             view.setOnCreateContextMenuListener(this);
         }
@@ -70,19 +68,22 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-    @SuppressLint({"ResourceType", "SetTextI18n"})
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
         DataModel dataModel = names.get(position);
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd',' yyyy  hh:mm a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd',' yyyy  hh:mm a");
 
         viewHolder.note.setText(dataModel.getName());
+
+        /*if(dataModel.getTitle().trim().length() > 0) {
+            viewHolder.title.setVisibility(View.VISIBLE);
+            viewHolder.title.setText(dataModel.getTitle());
+        }*/
 
         String CreationTime = formatter.format(new Date(dataModel.getTime()));
         viewHolder.time.setText(CreationTime);
 
-        String ReminderTime = formatter.format(new Date(dataModel.getReminderTime()));
 
         if(dataModel.getReminderTime() > System.currentTimeMillis())
             viewHolder.alarm_on.setVisibility(View.VISIBLE);

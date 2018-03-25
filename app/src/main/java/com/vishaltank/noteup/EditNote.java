@@ -1,5 +1,6 @@
 package com.vishaltank.noteup;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -25,7 +26,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,26 +35,24 @@ public class EditNote extends AppCompatActivity {
     private EditText etText, etTextTitle;
     private DatabaseHelper database = new DatabaseHelper(this);
     private String name, title;
-    private long time, noti_time = 0;
-    private String text;
     private static boolean flag = false;
     private MenuItem item;
     private SwitchCompat aSwitch;
     private DataModel dataModel = new DataModel();
     private Calendar calender;
     private boolean isAlarmSet;
-    private String originTime;
     private TextView rem_time;
     private Bundle bundle;
-    private long reminder_time,t;
-    private int reminder_id;
-    private int noti_id;
+    private long reminder_time,time,noti_time = 0;
+    private int reminder_id,noti_id;
     private boolean isAlreadySet;
-    private Date d;
+    private long creationTime;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /* Theme setter. */
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             setTheme(R.style.DarkTheme);
         else
@@ -63,11 +61,12 @@ public class EditNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        /* toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar_EditNote);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Note Editor");
+        getSupportActionBar().setTitle("");
+        toolbar.setElevation(4);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setElevation(4);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setBackgroundDrawable((AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? new ColorDrawable(Color.parseColor("#323232")) : new ColorDrawable(Color.parseColor("#fefefe")));
 
@@ -160,49 +159,53 @@ public class EditNote extends AppCompatActivity {
             }
         });
 
+        /* switch's onChange */
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("SimpleDateFormat")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked && !isAlarmSet) {
+                    //off->on when no reminder is set.
                     showDateTimePicker();
                 }
                 else if (isChecked && isAlarmSet) {
 
-                    reminder_time = Long.parseLong(bundle.get("reminder_time").toString());
-                    reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
+                    //off->on and alarm is already set.
+                    reminder_time = Long.parseLong(String.valueOf(bundle.get("reminder_time")));
+                    reminder_id = Integer.parseInt(String.valueOf(bundle.get("reminder_id")));
 
                     isAlreadySet = true;
                     rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(reminder_time));
 
                 } else if(!isChecked && isAlarmSet) {
 
-                    reminder_id = Integer.parseInt(bundle.get("reminder_id").toString());
+                    //on->off when alarm is set , cancels reminder if saved.
+                    reminder_id = Integer.parseInt(String.valueOf(bundle.get("reminder_id")));
 
                     cancelReminder(reminder_id);
 
                     isAlarmSet = false;
                     isAlreadySet = false;
                     reminder_id = 0;
+                    reminder_time = 0;
                     dataModel.setReminderID(0);
                     dataModel.setReminderTime((long) 0);
-                    rem_time.setText("Not Set!");
+                    rem_time.setText(getString(R.string.reminder_Text));
                 }
             }
         });
 
 
-
-
-        //Editing an existing Note.
+        /* Editing an existing Note. */
         bundle = getIntent().getExtras();
 
         if (bundle != null) {
 
-            title = bundle.get("title").toString();
-            name = bundle.get("name").toString();
-            time = Long.parseLong(bundle.get("time").toString());
-            noti_time = Long.parseLong(bundle.get("reminder_time").toString());
-            noti_id = Integer.parseInt(bundle.get("reminder_id").toString());
+            title = String.valueOf(bundle.get("title"));
+            name = String.valueOf(bundle.get("name"));
+            time = Long.parseLong(String.valueOf(bundle.get("time")));
+            noti_time = Long.parseLong(String.valueOf(bundle.get("reminder_time")));
+            noti_id = Integer.parseInt(String.valueOf(bundle.get("reminder_id")));
 
             if (name != null) {
 
@@ -216,7 +219,7 @@ public class EditNote extends AppCompatActivity {
                     aSwitch.setChecked(true);
                     reminder_time = noti_time;
                     reminder_id = noti_id;
-                    rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(reminder_time));
+                    rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm a").format(reminder_time));
 
                 } else {
 
@@ -244,6 +247,7 @@ public class EditNote extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         database = new DatabaseHelper(this);
@@ -261,17 +265,19 @@ public class EditNote extends AppCompatActivity {
 
                     if (name == null && title == null) {
                         database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time, reminder_id);
-                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        //originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        creationTime = System.currentTimeMillis();
                     }else {
                         database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time, reminder_id);
-                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        //originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        creationTime = System.currentTimeMillis();
                     }
-                    cancelReminder(reminder_id);
+                    //cancelReminder(reminder_id);
 
                     Intent intent = new Intent(EditNote.this, AlarmReceiver.class);
                     intent.putExtra("ARtitle", etTextTitle.getText().toString());
                     intent.putExtra("ARname", etText.getText().toString());
-                    intent.putExtra("ARtime", originTime);
+                    intent.putExtra("ARtime", creationTime);
                     intent.putExtra("ARreminder_id",reminder_id);
                     intent.putExtra("ARreminder_time",reminder_time);
 
@@ -279,18 +285,17 @@ public class EditNote extends AppCompatActivity {
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reminder_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    if (alarmManager != null) {
+                    if (alarmManager != null)
                         alarmManager.set(AlarmManager.RTC_WAKEUP, dataModel.getReminderTime(), pendingIntent);
-                    }
+
 
                     isAlreadySet = true;
                     isAlarmSet = true;
-
-                    Toast.makeText(this, "if " + reminder_time + "  " + dataModel.getReminderTime(), Toast.LENGTH_SHORT).show();
+                    flag = false;
 
                     this.finish();
                 }
-                //Switch is on and proper time is set.
+                /* Switch is on and proper time is set. */
                 else if (aSwitch.isChecked() && calender.getTimeInMillis() > System.currentTimeMillis() && !isAlreadySet) {
 
                     reminder_time = calender.getTimeInMillis();
@@ -299,22 +304,24 @@ public class EditNote extends AppCompatActivity {
                     dataModel.setReminderTime(reminder_time);
                     dataModel.setReminderID(reminder_id);
 
-                    //new Note
+                    /* new Note */
                     if (name == null && title == null) {
                         database.insertNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), reminder_time,reminder_id);
-                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        //originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        creationTime = System.currentTimeMillis();
                     }
-                    //Editing an existing Note since name and title are not null.
+                    /* Editing an existing Note since name and title are not null. */
                     else {
                         database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
-                        originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        //originTime = new SimpleDateFormat("MMM dd',' yyyy  hh:mm").format(new Date(System.currentTimeMillis()));
+                        creationTime = System.currentTimeMillis();
                     }
 
 
                     Intent intent = new Intent(this, AlarmReceiver.class);
                     intent.putExtra("ARtitle", etTextTitle.getText().toString());
                     intent.putExtra("ARname", etText.getText().toString());
-                    intent.putExtra("ARtime", originTime);
+                    intent.putExtra("ARtime", creationTime);
                     intent.putExtra("ARreminder_id",reminder_id);
                     intent.putExtra("ARreminder_time",reminder_time);
 
@@ -328,20 +335,20 @@ public class EditNote extends AppCompatActivity {
 
                     isAlarmSet = true;
                     isAlreadySet = true;
+                    flag = false;
 
-                    Toast.makeText(this, "1 reminder_id : "+reminder_time + "  " + dataModel.getReminderTime(), Toast.LENGTH_SHORT).show();
 
                     this.finish();
                 }
 
 
-                //Switch is on and improper time is set.
+                /* Switch is on and improper time is set. */
                 else if (aSwitch.isChecked() && calender.getTimeInMillis() < System.currentTimeMillis()) {
 
                     AlertDialog.Builder alert = new AlertDialog.Builder(this, (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) ? R.style.Theme_AppCompat_DayNight_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
                     alert.setTitle("Invalid Reminder Time");
-                    alert.setMessage("\nPlease set proper Date and Time.");
+                    alert.setMessage("\nPlease set proper Date and Time.\n");
 
                     final AlertDialog dialog = alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
 
@@ -349,7 +356,7 @@ public class EditNote extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                             aSwitch.setChecked(false);
-                            rem_time.setText("Not Set!");
+                            rem_time.setText(getString(R.string.reminder_Text));
                         }
 
                     }).setPositiveButton("SET", new DialogInterface.OnClickListener() {
@@ -372,10 +379,9 @@ public class EditNote extends AppCompatActivity {
                     });
                     dialog.show();
 
-                    Toast.makeText(this,"2", Toast.LENGTH_SHORT).show();
                 }
 
-                //Switch is not set.
+                /* Switch is not on. */
                 else if (!aSwitch.isChecked()) {
 
                     reminder_time = 0;
@@ -385,14 +391,10 @@ public class EditNote extends AppCompatActivity {
                     else
                         database.updateNote(etTextTitle.getText().toString().trim(), etText.getText().toString(), time, reminder_time,reminder_id);
 
+
                     cancelReminder(reminder_id);
+                    flag = false;
 
-                    Toast.makeText(this, "3 canceled reminder_time : "  + reminder_time + "  " + dataModel.getReminderTime() + " "+ dataModel.getTitle(), Toast.LENGTH_SHORT).show();
-
-                    reminder_id = 0;
-                    reminder_time = 0;
-                    isAlarmSet = false;
-                    isAlreadySet = false;
 
                     this.finish();
                 }
@@ -425,6 +427,7 @@ public class EditNote extends AppCompatActivity {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
                 calender.set(Calendar.YEAR, year);
                 calender.set((Calendar.MONTH), monthOfYear);
                 calender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -433,10 +436,12 @@ public class EditNote extends AppCompatActivity {
 
                     @Override
                     public void onTimeSet(TimePicker view, int hour, int minute) {
+
                         calender.set(Calendar.HOUR_OF_DAY, hour);
                         calender.set(Calendar.MINUTE, minute);
                         calender.set(Calendar.SECOND, 0);
-                        Toast.makeText(EditNote.this,"Selected time : " + calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + "/" + calender.get(Calendar.YEAR)  + " at " + calender.get(Calendar.HOUR) + ":" + calender.get(Calendar.MINUTE) + "  " + ((calender.getTimeInMillis() - System.currentTimeMillis())/1000), Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditNote.this,"Selected time : " + calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + "/" + calender.get(Calendar.YEAR) + " at " + calender.get(Calendar.HOUR_OF_DAY) + ":" + calender.get(Calendar.MINUTE) , Toast.LENGTH_LONG).show();
+
                     }
                 }, calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), false).show();
 
@@ -445,6 +450,7 @@ public class EditNote extends AppCompatActivity {
 
     }
 
+    //To cancel the reminder.
     private void cancelReminder(int remID) {
 
         Intent cancelServiceIntent = new Intent(this, AlarmReceiver.class);
@@ -458,6 +464,7 @@ public class EditNote extends AppCompatActivity {
         isAlreadySet = false;
         isAlarmSet = false;
         reminder_id = 0;
+        reminder_time = 0;
     }
 
     @Override

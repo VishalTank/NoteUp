@@ -2,16 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vishaltank.noteup">
 
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
 
     <application
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
 
@@ -42,13 +41,14 @@
             android:theme="@style/AppTheme" />
 
 
+        <activity android:name=".AppIntroActivity"
+            android:theme="@style/AppTheme"/>
+
+
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
-
-
-        <activity android:name=".AppIntroActivity"/>
 
     </application>
 </manifest>

@@ -20,15 +20,12 @@ public class AppIntroActivity extends AppIntro {
 
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().hide();
-
-        addSlide(AppIntroFragment.newInstance("Welcome to\nNoteUp!","Simplest way to take and keep track of your tasks and notes.", R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Make a new note","Create a new note using ADD button.",R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Edit an existing note","Swipe from left to right on a note.",R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Delete and Undo","Delete a note by swiping left\nand UNDO it from the snackbar.",R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Set a reminder","Reminder reminds you of your notes and tasks at a specified time.",R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Bonus!","Click on the app's icon to toggle between Dark and Light theme for the app!!!",R.drawable.wiz, Color.parseColor("#404040")));
-        addSlide(AppIntroFragment.newInstance("Done","Enjoy using NoteUp!",R.drawable.wiz, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Welcome to\nNoteUp!","Simplest way to take and keep track of your thoughts and notes.", R.drawable.tutorial_icon, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Create a new note","Simply create a new note using Add button.",R.drawable.create_ss, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Edit a note","Swipe right on a note to edit.",R.drawable.edit_ss, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Delete / Undo","Swipe left on a note to delete\nretrieve it back using UNDO.",R.drawable.delete_ss, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Set reminders","Set reminder on a note to get notified about it whenever needed!",R.drawable.reminder_ss, Color.parseColor("#404040")));
+        addSlide(AppIntroFragment.newInstance("Something new!","Click on the NoteUp's icon to change theme!!!",R.drawable.themechanger_ss, Color.parseColor("#404040")));
 
         showSkipButton(false);
 
@@ -50,7 +47,7 @@ public class AppIntroActivity extends AppIntro {
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("firstRun", false);
 
-        editor.commit();
+        editor.apply();
         finish();
     }
 

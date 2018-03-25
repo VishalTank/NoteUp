@@ -25,14 +25,15 @@
             app:popupTheme="@style/MyPopUpTheme" >
 
             <TextView
-                android:id="@+id/toolbar_title"
+                android:id="@+id/toolbar_MainActivity_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/lobster_two_bold_italic"
-                android:text="NoteUp"
+                android:fontFamily="@font/capriola_font"
+                android:text="@string/noteup"
+                android:textAlignment="center"
                 android:textColor="?attr/iconsColor"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -72,7 +73,8 @@
         android:clickable="true"
         android:src="@drawable/add_note"
         app:backgroundTint="?attr/fabColor"
-        app:rippleColor="?attr/iconsRippleColor" />
+        app:rippleColor="?attr/iconsRippleColor"
+        android:focusable="true" />
 
 
 </android.support.design.widget.CoordinatorLayout>
