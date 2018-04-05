@@ -68,8 +68,8 @@
 
     <style name="MyPopUpTheme" parent="ThemeOverlay.AppCompat">
         <item name="android:textColor">?attr/mainBackgroundColor</item>
-        <item name="android:colorBackground">?attr/toggleColor</item>
-        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="android:colorBackground">?attr/menuBackgroundColor</item>
+        <item name="selectableItemBackground">?attr/selectableItemBackground</item>
         <item name="colorControlHighlight">?attr/mainBackgroundColor</item>
     </style>
 

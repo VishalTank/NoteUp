@@ -12,7 +12,7 @@
     <color name="iconsRippleColorLT">#666</color>
     <color name="toggleColorLT">#303030</color>
     <color name="reminderTextColorLT">#00a1e9</color>
-    <color name="menuBackgroundColorLT">#202020</color>
+    <color name="menuBackgroundColorLT">#222</color>
     <color name="hintColorLT">#909090</color>
     <color name="barColorLT">#ddd</color>
 
@@ -28,7 +28,7 @@
     <color name="iconsRippleColorDT">#bbb</color>
     <color name="toggleColorDT">#fafafa</color>
     <color name="reminderTextColorDT">#15adf1</color>
-    <color name="menuBackgroundColorDT">#202020</color>
+    <color name="menuBackgroundColorDT">#fcfcfc</color>
     <color name="hintColorDT">#d0d0d0</color>
     <color name="barColorDT">#212121</color>
 

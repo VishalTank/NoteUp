@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 public class AboutActivity extends AppCompatActivity {
 
     private AnimationDrawable anim;
-    private ImageButton facebook,github,twitter,google_plus,facebook1,github1,twitter1,website;
+    private ImageButton facebook,github,twitter,google_plus,facebook1,github1,twitter1,website,rating,share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,30 @@ public class AboutActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT   , getString(R.string.feedback_message));
 
                 startActivity(Intent.createChooser(intent,"Send feedback"));
+            }
+        });
+
+        rating = findViewById(R.id.rate_button);
+        share = findViewById(R.id.share_button);
+
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://play.google.com/store/apps/details?id=com.vishaltank.noteup";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "android solved");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, "Check out my app right now! Create and keep track of notes in an easy way with NoteUp! NoteUp also helps you in reminding things you need to do through simple notifications. https://play.google.com/store/apps/details?id=com.vishaltank.noteup");
+                startActivity(Intent.createChooser(sharingIntent, "share via"));
             }
         });
 

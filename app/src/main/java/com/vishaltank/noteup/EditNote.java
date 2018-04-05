@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +49,7 @@ public class EditNote extends AppCompatActivity {
     private int reminder_id,noti_id;
     private boolean isAlreadySet;
     private long creationTime;
+    private Date calender_date;
 
     @SuppressLint("SimpleDateFormat")
     @Override
@@ -440,7 +443,12 @@ public class EditNote extends AppCompatActivity {
                         calender.set(Calendar.HOUR_OF_DAY, hour);
                         calender.set(Calendar.MINUTE, minute);
                         calender.set(Calendar.SECOND, 0);
-                        Toast.makeText(EditNote.this,"Selected time : " + calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + "/" + calender.get(Calendar.YEAR) + " at " + calender.get(Calendar.HOUR_OF_DAY) + ":" + calender.get(Calendar.MINUTE) , Toast.LENGTH_LONG).show();
+
+                        calender_date = calender.getTime();
+
+                        //Toast.makeText(EditNote.this,"Selected time : " + calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + "/" + calender.get(Calendar.YEAR) + " at " + calender.get(Calendar.HOUR_OF_DAY) + ":" + calender.get(Calendar.MINUTE) , Toast.LENGTH_LONG).show();
+                        //String temp = calender.get(Calendar.DAY_OF_MONTH) + "/" + calender.get(Calendar.MONTH) + "/" + calender.get(Calendar.YEAR) + " at " + calender.get(Calendar.HOUR_OF_DAY) + ":" + calender.get(Calendar.MINUTE);
+                        rem_time.setText(new SimpleDateFormat("MMM dd',' yyyy  hh:mm a").format(calender_date));
 
                     }
                 }, calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), false).show();
